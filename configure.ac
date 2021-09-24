@@ -26,19 +26,6 @@ AC_PROG_LN_S
 AC_PROG_MAKE_SET
 AC_PROG_LIBTOOL
 
-AC_ARG_VAR(MOC,Path to moc executable)
-AC_ARG_VAR(UIC,Path to uic executable)
-AC_ARG_VAR(RCC,Path to rcc executable)
-AC_ARG_VAR(LCONVERT,Path to lconvert executable)
-AC_CHECK_PROGS(MOC, [moc moc-qt5 moc-qt4])
-AC_CHECK_PROGS(UIC, [uic uic-qt5 uic-qt4])
-AC_CHECK_PROGS(RCC, [rcc rcc-qt5])
-AC_CHECK_PROGS(LCONVERT, [lconvert lconvert-qt5])
-if test -z "$MOC" || test -z "$UIC" || test -z "$RCC" || test -z "$LCONVERT"
-then
-AC_MSG_ERROR([Qt utility programs moc, uic, rcc and lconvert are required.])
-fi
-
 AC_ARG_VAR(PYLON_CONFIG,Path to pylon-config executable)
 AC_PATH_PROG(PYLON_CONFIG,[pylon-config],,[$PATH:/opt/pylon/bin])
 
@@ -122,57 +109,6 @@ case $host in
 		have_svbcamerasdk=yes
     ;;
 esac
-
-# Retrieve Qt compilation and linker flags
-have_qt5=no
-qtver=`$MOC -v 2>&1 | sed 's/^.* \(.*\..*\)\..*$/\1/'`
-qt_maj=`echo "$qtver" | cut -f1 -d.`
-qt_min=`echo "$qtver" | cut -f2 -d.`
-
-if test "$qt_maj" -eq 5
-then
-  have_qt5=yes
-fi
-
-if test "$have_qt5" == "yes"
-then
-  PKG_CHECK_MODULES(QT5, [Qt5Core, Qt5Gui, Qt5Widgets], [], [
-    AC_MSG_ERROR([Qt5 libraries are required.])])
-  AC_MSG_NOTICE([Building using Qt5])
-  if test "$checkQtForPIC" == "yes"; then
-    $PKG_CONFIG --variable=qt_config Qt5Core | grep -q reduce_relocations
-    red_rel=$?
-    if test $red_rel -eq 0; then
-      CXXFLAGS="-fPIC $CXXFLAGS"
-      AC_MSG_NOTICE([Qt5 appears to require compilation with -fPIC])
-    fi
-  fi
-  flags=`$PKG_CONFIG --cflags-only-I Qt5Core Qt5Gui Qt5Widgets`
-  MOC_CFLAGS="$flags"
-  if test "$useisystemInclude" == "yes"; then
-    flags=`echo "$flags" | sed 's/-I/-isystem/g'`
-  fi
-  CPPFLAGS="$flags $CPPFLAGS"
-  LDFLAGS="`$PKG_CONFIG --libs-only-L Qt5Core Qt5Gui Qt5Widgets` $LDFLAGS"
-  LIBS="`$PKG_CONFIG --libs-only-l Qt5Core Qt5Gui Qt5Widgets` $LIBS"
-  AC_DEFINE([HAVE_QT5],[1],[Have Qt5])
-else
-  PKG_CHECK_MODULES(QT, [QtCore, QtGui, QtNetwork], [], [
-    AC_MSG_ERROR([Qt libraries are required.])])
-  if ! `$PKG_CONFIG --exists 'QtCore >= 4.8.0'`; then
-    AC_MSG_ERROR([Qt >= 4.8.0 is required.])
-  fi
-  AC_MSG_NOTICE([Building using Qt4])
-  flags=`$PKG_CONFIG --cflags-only-I QtCore QtGui QtNetwork`
-  MOC_CFLAGS="$flags $MOC_CFLAGS"
-  if test "$useisystemInclude" == "yes"; then
-    flags=`echo "$flags" | sed 's/-I/-isystem/g'`
-  fi
-  CPPFLAGS="$flags $CPPFLAGS"
-  LDFLAGS="`$PKG_CONFIG --libs-only-L QtCore QtGui QtNetwork` $LDFLAGS"
-  LIBS="`$PKG_CONFIG --libs-only-l QtCore QtGui QtNetwork` $LIBS"
-  AC_DEFINE([HAVE_QT4],[1],[Have Qt4])
-fi
 
 # Checks for libraries.
 
@@ -1739,5 +1675,5 @@ AM_CONDITIONAL([BUILD_LIBUSB_COND], [test "x$build_libusb" == "xyes"])
 AM_CONDITIONAL([LIBHIDAPI_COND], [test "x$use_system_libhidapi" == "xno"])
 AM_CONDITIONAL([INT_LIBUVC_COND], [test "x$internal_uvc" == "xyes"])
 
-AC_CONFIG_FILES([Makefile common/Makefile liboautil/Makefile liboacam/Makefile liboacam/altair/Makefile liboacam/altair-legacy/Makefile liboacam/atik/Makefile liboacam/euvc/Makefile liboacam/iidc/Makefile liboacam/mallincam/Makefile liboacam/flycap2/Makefile liboacam/spinnaker/Makefile liboacam/pwc/Makefile liboacam/pylon/Makefile liboacam/qhy/Makefile liboacam/qhyccd/Makefile liboacam/starshootg/Makefile liboacam/risingcam/Makefile liboacam/omegonpro/Makefile liboacam/svbony/Makefile liboacam/sx/Makefile liboacam/toupcam/Makefile liboacam/uvc/Makefile liboacam/v4l2/Makefile liboacam/zwo/Makefile liboacam/dummy/Makefile liboacam/gphoto2/Makefile liboacam/aravis/Makefile liboacam/meadecam/Makefile liboacam/demo/Makefile liboademosaic/Makefile liboaSER/Makefile liboavideo/Makefile liboafilterwheel/Makefile liboafilterwheel/sx/Makefile liboafilterwheel/xagyl/Makefile liboafilterwheel/zwo/Makefile liboafilterwheel/brightstar/Makefile liboaimgproc/Makefile liboaPTR/Makefile liboaephem/Makefile oacapture/Makefile oacapture/icons/Makefile oacapture/desktop/Makefile oacapture/translations/Makefile ext/Makefile ext/libuvc/Makefile ext/libuvc/src/Makefile ext/libwindib/Makefile oalive/Makefile oalive/icons/Makefile oalive/desktop/Makefile udev/Makefile lib/Makefile lib/firmware/Makefile lib/firmware/qhy/Makefile bin/Makefile packagers/Makefile packagers/deb/Makefile packagers/deb/debfiles/Makefile packagers/rpm/Makefile osx/Makefile osx/oaCapture.iconset/Makefile osx/oalive.iconset/Makefile])
+AC_CONFIG_FILES([Makefile liboautil/Makefile liboacam/Makefile liboacam/altair/Makefile liboacam/altair-legacy/Makefile liboacam/atik/Makefile liboacam/euvc/Makefile liboacam/iidc/Makefile liboacam/mallincam/Makefile liboacam/flycap2/Makefile liboacam/spinnaker/Makefile liboacam/pwc/Makefile liboacam/pylon/Makefile liboacam/qhy/Makefile liboacam/qhyccd/Makefile liboacam/starshootg/Makefile liboacam/risingcam/Makefile liboacam/omegonpro/Makefile liboacam/svbony/Makefile liboacam/sx/Makefile liboacam/toupcam/Makefile liboacam/uvc/Makefile liboacam/v4l2/Makefile liboacam/zwo/Makefile liboacam/dummy/Makefile liboacam/gphoto2/Makefile liboacam/aravis/Makefile liboacam/meadecam/Makefile liboacam/demo/Makefile liboademosaic/Makefile liboavideo/Makefile liboafilterwheel/Makefile liboafilterwheel/sx/Makefile liboafilterwheel/xagyl/Makefile liboafilterwheel/zwo/Makefile liboafilterwheel/brightstar/Makefile liboaimgproc/Makefile  ext/Makefile ext/libuvc/Makefile ext/libuvc/src/Makefile ext/libwindib/Makefile  udev/Makefile lib/Makefile lib/firmware/Makefile lib/firmware/qhy/Makefile bin/Makefile ])
 AC_OUTPUT

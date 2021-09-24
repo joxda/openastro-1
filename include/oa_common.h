@@ -74,4 +74,13 @@ extern int errno;
 #define nullptr NULL
 #endif
 
+#define _POSIX_C_SOURCE 1
+#include <limits.h>
+#include <math.h>
+#include <string.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include <time.h>
+#include <sys/time.h>
+#include <errno.h>
 #endif /* OA_COMMON_H */

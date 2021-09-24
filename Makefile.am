@@ -22,15 +22,14 @@
 # along with the Open Astro Project.  If not, see
 # <http://www.gnu.org/licenses/>.
 #
-#SUBDIRS = bin docs include liboafilterwheel udev
+#SUBDIRS = include liboafilterwheel udev
 
 ACLOCAL_AMFLAGS=-I m4
 
-WARN_SUBDIRS = liboautil liboavideo liboacam liboademosaic liboaSER \
-							 liboafilterwheel liboaPTR liboaimgproc liboaephem common osx \
-							 oacapture oalive
+WARN_SUBDIRS = liboautil liboavideo liboacam liboademosaic  \
+							 liboafilterwheel liboaimgproc 
 
-NOWARN_SUBDIRS = ext udev bin packagers
+NOWARN_SUBDIRS = ext udev
 
 SUBDIRS = $(NOWARN_SUBDIRS) $(WARN_SUBDIRS)
 
@@ -44,9 +43,9 @@ verbose-warnings:
 	$(MAKE) V=1 CFLAGS='$(WARNINGS)' CXXFLAGS='$(WARNINGS)'
 	$(MAKE) V=1 CFLAGS='$(WARNINGS)' CXXFLAGS='$(WARNINGS)' $(check_PROGRAMS)
 
-dmg:
-	bin/build-oacapture-dmg.sh
-	bin/build-oalive-dmg.sh
-
-osx-pkg:
-	bin/build-osx-pkg.sh
+#dmg:
+#	bin/build-oacapture-dmg.sh
+#	bin/build-oalive-dmg.sh
+#
+#osx-pkg:
+#	bin/build-osx-pkg.sh
