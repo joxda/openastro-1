@@ -181,3 +181,6 @@ ui_*.h
 /liboacam/demo/updateMenuControl
 /liboacam/demo/setFrameFormat
 /liboacam/demo/setFrameSize
+
+*.a
+build/*
