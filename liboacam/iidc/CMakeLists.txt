@@ -1,17 +1,9 @@
 cmake_minimum_required(VERSION 3.11)
  
-include_directories( ${CMAKE_SOURCE_DIR}/include )
-include_directories( ${CMAKE_SOURCE_DIR}/ext/libusb )
-include_directories( ${CMAKE_SOURCE_DIR}/ext/libusb )
-include_directories( ${CMAKE_SOURCE_DIR}/liboacam )
-include_directories( ${CMAKE_SOURCE_DIR} )
-
-
-#find_package(libusb)
 
 #$(SHLIBS_CFLAGS) \
 #$(LIBDC1394_CFLAGS) \
+# TBD!!!
 
-add_library(iidc OBJECT IIDCoacam.c IIDCconnect.c IIDCgetState.c IIDCcontrol.c IIDCcontroller.c IIDCcallback.c IIDCdynloader.c )
-link_libraries(iidc dc1394 ${CMAKE_DL_LIBS} ${USB1_LIBRARIES} )
-target_include_directories( iidc PRIVATE /usr/local/include/ )
+target_sources(oacam PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/IIDCoacam.c ${CMAKE_CURRENT_SOURCE_DIR}/IIDCconnect.c ${CMAKE_CURRENT_SOURCE_DIR}/IIDCgetState.c ${CMAKE_CURRENT_SOURCE_DIR}/IIDCcontrol.c ${CMAKE_CURRENT_SOURCE_DIR}/IIDCcontroller.c ${CMAKE_CURRENT_SOURCE_DIR}/IIDCcallback.c ${CMAKE_CURRENT_SOURCE_DIR}/IIDCdynloader.c )
+

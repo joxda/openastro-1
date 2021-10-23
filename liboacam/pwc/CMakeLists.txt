@@ -9,7 +9,7 @@ cmake_minimum_required(VERSION 3.11)
 #  $(DYNLIB_EXTN_CFLAGS)
 # -I/usr/local/Cellar/libuvc/0.0.6/include -I/usr/local/include/libusb-1.0 -L/usr/local/Cellar/libuvc/0.0.6/lib/ -L/usr/local/lib -luvc -lusb-1.0
 
+# TBD CHECK
 
-add_library(pwc OBJECT PWCgetState.c PWCconnect.c PWCoacam.c )
+target_sources(oacam PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/PWCgetState.c ${CMAKE_CURRENT_SOURCE_DIR}/PWCconnect.c ${CMAKE_CURRENT_SOURCE_DIR}/PWCoacam.c )
 
-link_libraries(pwc ${CMAKE_DL_LIBS} ${USB1_LIBRARIES} )

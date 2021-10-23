@@ -1,9 +1,6 @@
 cmake_minimum_required(VERSION 3.11)
  
-include_directories( ${CMAKE_SOURCE_DIR}/include )
-include_directories( ${CMAKE_SOURCE_DIR}/liboacam )
-include_directories( ${CMAKE_SOURCE_DIR} )
-include_directories( ${CMAKE_SOURCE_DIR}/ext/libuvc/include )
+target_include_directories( oacam PRIVATE ${CMAKE_SOURCE_DIR}/ext/libuvc/include )
 
 find_package(libuvc)
 
@@ -14,5 +11,4 @@ find_package(libuvc)
 # -I/usr/local/Cellar/libuvc/0.0.6/include -I/usr/local/include/libusb-1.0 -L/usr/local/Cellar/libuvc/0.0.6/lib/ -L/usr/local/lib -luvc -lusb-1.0
 
 
-add_library(uvc OBJECT UVCoacam.c UVCconnect.c UVCgetState.c UVCcontrol.c UVCcontroller.c UVCcallback.c UVCExtnUnits.c UVCdynloader.c TISExtensionUnits.c )
-link_libraries(uvc ${CMAKE_DL_LIBS} ${USB1_LIBRARIES} libuvc )
+target_sources(oacam PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/UVCoacam.c ${CMAKE_CURRENT_SOURCE_DIR}/UVCconnect.c ${CMAKE_CURRENT_SOURCE_DIR}/UVCgetState.c ${CMAKE_CURRENT_SOURCE_DIR}/UVCcontrol.c ${CMAKE_CURRENT_SOURCE_DIR}/UVCcontroller.c ${CMAKE_CURRENT_SOURCE_DIR}/UVCcallback.c ${CMAKE_CURRENT_SOURCE_DIR}/UVCExtnUnits.c ${CMAKE_CURRENT_SOURCE_DIR}/UVCdynloader.c ${CMAKE_CURRENT_SOURCE_DIR}/TISExtensionUnits.c )
