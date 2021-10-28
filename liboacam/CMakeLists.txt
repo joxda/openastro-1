@@ -125,9 +125,16 @@ include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/../ext/libASICamera/include )
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/../ext/libtoupcam/include )
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/../ext/libqhyccd/include )
 
+#find_package(USB1 REQUIRED)
+
+
+add_library(oacam control.c oacam.c unimplemented.c utils.c timer.c)
+set_property(TARGET oacam PROPERTY C_STANDARD 99)     
+
+
 #?
 add_subdirectory(euvc)
-add_subdirectory(iidc)
+#add_subdirectory(iidc)
 add_subdirectory(pwc)
 add_subdirectory(qhy)
 add_subdirectory(sx)
@@ -136,16 +143,18 @@ add_subdirectory(dummy)
 
 #add_subdirectory(v4l2)
 
-if(DO_ZWO)
+if(HAVE_LIBASI2)
+    message("THIS WORKED")
     add_subdirectory(zwo)
 endif()
 
 
 
-add_library(oacam control.c oacam.c unimplemented.c utils.c timer.c)
-set_property(TARGET oacam PROPERTY C_STANDARD 99)     
-link_libraries(oacam STATIC PUBLIC '''$<TARGET_OBJECTS:euvc>''' $<TARGET_OBJECTS:iidc> $<TARGET_OBJECTS:pwc> $<TARGET_OBJECTS:qhy> $<TARGET_OBJECTS:sx> $<TARGET_OBJECTS:uvc> $<TARGET_OBJECTS:dummy> $<TARGET_OBJECTS:v4l2> $<TARGET_OBJECTS:zwo>  ${CMAKE_DL_LIBS} )
-
+link_libraries(oacam STATIC PUBLIC dl '''$<TARGET_OBJECTS:euvc>''' $<TARGET_OBJECTS:iidc> $<TARGET_OBJECTS:pwc> $<TARGET_OBJECTS:qhy> $<TARGET_OBJECTS:sx> $<TARGET_OBJECTS:uvc> $<TARGET_OBJECTS:dummy> $<TARGET_OBJECTS:v4l2> $<TARGET_OBJECTS:zwo> ${CMAKE_DL_LIBS} ${USB1_LIBRARIES} usb-1.0 )
+if(HAVE_LIBUVC)
+    message("THIS TOO")
+    link_libraries(oacam STATIC PUBLIC uvc)
+endif()
 
 target_include_directories(oacam PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../include)                                                          
 file(GLOB_RECURSE INCLUDE_FILES "../include/*.h*")                                                                                                 
@@ -153,6 +162,7 @@ set_target_properties(                                                          
     PUBLIC_HEADER "${INCLUDE_FILES}"                                                                                                            
 )          
 
+# DO SUMMARY !!
 
 install(TARGETS oacam LIBRARY PUBLIC_HEADER DESTINATION include)
 

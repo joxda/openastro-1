@@ -18,11 +18,8 @@ AC_LANG_POP(C++)
 #undef HAVE_MEMCPY
 #undef HAVE_MEMSET
 #undef HAVE_MKDIR
-#undef HAVE_NULLPTR
-#undef HAVE_POW
 #undef HAVE_REALLOC // gnu libc compatible
 #undef HAVE_SELECT
-#undef HAVE_SQRT
 #undef HAVE_STAT64
 #undef HAVE_STRCASECMP
 #undef HAVE_STRCHR

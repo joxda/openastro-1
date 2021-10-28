@@ -1,9 +1,30 @@
 cmake_minimum_required(VERSION 3.11)
 
 SET( CMAKE_C_STANDARD 99 )
+SET( CMAKE_CXX_STANDARD 11 )
+
 project(liboacam)
 
+# possibly put checks in separate file?
+
+
+# need to check for dc1394 !
+# also need to go through the different subdirs of liboacam to see what is needed... for what?
+# In file included from /Users/jjjanz/openastro-1/liboacam/iidc/IIDCcontroller.c:39:
+# /Users/jjjanz/openastro-1/liboacam/iidc/IIDCstate.h:31:10: fatal error: 'dc1394/dc1394.h' file not found
+# #include <dc1394/dc1394.h>
+
+# use internal alternatives?
+
+# libraries: want to include vs available?
+
+# $armelavailable logic?
+
+# qhyccd special stuff see below
+
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
+set(CMAKE_REQUIRED_INCLUDES /usr/local/include)
+
 
 INCLUDE (${CMAKE_ROOT}/Modules/CheckIncludeFile.cmake)
 INCLUDE (CheckIncludeFileCXX)
@@ -31,6 +52,7 @@ CHECK_INCLUDE_FILE( sys/ioctl.h HAVE_SYS_IOCTL_H )
 CHECK_INCLUDE_FILE( fcntl.h HAVE_FCNTL_H )
 CHECK_INCLUDE_FILE( inttypes.h HAVE_INTTYPES_H )
 CHECK_INCLUDE_FILE( memory.h HAVE_MEMORY_H )
+CHECK_INCLUDE_FILE( dlfcn.h HAVE_DLFCN_H )
 
 CHECK_INCLUDE_FILE( flycapture/C/FlyCapture2_C.h HAVE_FLYCAPTURE_C_FLYCAPTURE2_H )
 
@@ -45,6 +67,8 @@ CHECK_INCLUDE_FILE_CXX( cstrings HAVE_CSTRINGS )
 
 include(CheckSymbolExists)
 check_symbol_exists(exp10 "math.h" HAVE_EXP10)
+check_symbol_exists(sqrt "math.h" HAVE_SQRT)
+check_symbol_exists(pow "math.h" HAVE_POW)
 check_symbol_exists(clock_gettime "time.h" HAVE_CLOCK_GETTIME)
 check_symbol_exists(creat64 "fcntl.h" HAVE_CREAT64)
 check_symbol_exists(open64 "fcntl.h" HAVE_OPEN64)
@@ -59,25 +83,40 @@ check_symbol_exists(getcwd "unistd.h" HAVE_GETCWD)
 check_symbol_exists(lseek64 "unistd.h" HAVE_LSEEK64)
 check_symbol_exists(gettimeofday "sys/time.h" HAVE_GETTIMEOFDAY)
 
-file(WRITE   ${CMAKE_BINARY_DIR}/CMakeFiles/test_nullptr.cpp "#include <stdio.h>\nint main()\n{\nvoid		*a = nullptr;\nprintf ( \"%p\n\", a );\n}")
-try_compile(COMPILE_NULLPTR_SUCCEEDED ${CMAKE_BINARY_DIR}/CMakeFiles/compile_tests  ${CMAKE_BINARY_DIR}/CMakeFiles/test_nullptr.cpp )
-if(COMPILE_NULLPTR_SUCCEEDED)
-    SET(HAVE_NULLPTR True)
-endif()
+
+
+include(CheckCXXSourceCompiles)
+check_cxx_source_compiles("int main() { void* p = nullptr; }"
+    HAVE_NULLPTR
+    FAIL_REGEX "use of undeclared identifier 'nullptr'")
+
 
 # Conditional on use of ASI SDK?
 
+include_directories( /usr/local/include )
+link_directories( /usr/local/lib )
+
+SET(CMAKE_REQUIRED_INCLUDES /usr/local/lib)
+SET(CMAKE_REQUIRED_LIBRARIES uvc;ASICamera2)
 INCLUDE (CheckLibraryExists)
 #Usage: CHECK_LIBRARY_EXISTS(library function location variable)
-CHECK_LIBRARY_EXISTS(ASICamera2 ASIGetNumOfConnectedCameras "" HAVE_LIBASI2)
-IF(HAVE_LIBASI2)
-    CHECK_SYMBOL_EXISTS(ASI_AUTO_MAX_EXP_MS "ASICamera2.h" HAVE_DECL_ASI_AUTO_MAX_EXP_MS)
-    add_definitions(-DHAVE_LIBASI2=1)
+CHECK_LIBRARY_EXISTS(ASICamera2 ASIGetNumOfConnectedCameras /usr/local/lib HAVE_LIBASI2)
+CHECK_LIBRARY_EXISTS(uvc uvc_init /usr/local/lib HAVE_LIBUVC)
+
+IF(NOT HAVE_LIBASI2)
+include_directories(${CMAKE_SOURCE_DIR}/ext/libASICamera2/include )
+link_directories(${CMAKE_SOURCE_DIR}/ext/libASICamera2/mac )
+SET( HAVE_LIBASI2 TRUE)
 ENDIF()
 
-CHECK_LIBRARY_EXISTS(ASICamera2 ScanQHYCCD "" HAVE_LIBASI2)
+IF(HAVE_LIBASI2)
+    CHECK_SYMBOL_EXISTS(ASI_AUTO_MAX_EXP_MS "ASICamera2.h" HAVE_DECL_ASI_AUTO_MAX_EXP_MS)
+    add_definitions(-DHAVE_LIBASI2=1 -DDYNLIB_EXTN_CFLAGS) # TBD ??
+ENDIF()
 
+CHECK_LIBRARY_EXISTS(qhyccd ScanQHYCCD /usr/local/lib HAVE_QHYCCD)
 
+include_directories( ${CMAKE_BINARY_DIR} )
 
 SET( HAVE_CONFIG_H TRUE)
 SET( HAVE_LIBDL TRUE)
@@ -93,7 +132,7 @@ add_subdirectory(liboautil)
 include(${CMAKE_SOURCE_DIR}/cmake/TargetArch.cmake)
 target_architecture(arch)
 message(${arch})
-
+# LINK FILES...
 
 #armelavailable=yes
 #case $host in

@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.11)
  
 target_include_directories( oacam PRIVATE ${CMAKE_SOURCE_DIR}/ext/libuvc/include )
 
-find_package(libuvc)
 
 #-I/usr/local/include/libusb-1.0 -L/usr/local/lib -lusb-1.0
 #
