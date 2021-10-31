@@ -30,13 +30,95 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 
 set(CMAKE_REQUIRED_INCLUDES /usr/local/include)
 
-include(${CMAKE_SOURCE_DIR}/cmake/TargetArch.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/TargetArch.cmake)
 target_architecture(arch)
 message(${arch})
 
 IF(APPLE)
     SET(USB_OVERFLOW_HANGS TRUE)
 ENDIF()
+
+
+
+
+armelavailable=yes
+case $host in
+  *-apple-*|i?86-*-*|x86_64-*-*|armv[78]l-*-*|aarch64-*-*)
+		;;
+  armv[56]l-*-*)
+		armelavailable=no
+		;;
+esac
+have_v4l2=no
+have_udev=no
+have_ftdi1=no
+have_flycapture2=no
+have_spinnaker=no
+have_dl=no
+have_toupcam=$armelavailable
+have_mallincam=$armelavailable
+have_altaircam=$armelavailable
+have_altaircamlegacy=$armelavailable
+have_starshootg=$armelavailable
+have_nncam=$armelavailable
+have_omegonprocam=$armelavailable
+#have_meadecam=$armelavailable
+have_meadecam=no
+have_qhyccd=$armelavailable
+have_libavformat=no
+have_libavutil=no
+have_libavcodec=no
+internal_uvc=no
+have_libgphoto2=no
+have_svbcamerasdk=no
+have_libaravis=no
+
+checkQtForPIC=no
+checkSystemFFMPEG=yes
+checkSystemLibusb=yes
+checkSystemDC1394=yes
+checkSystemLibuvc=no
+checkSystemLibhidapi=yes
+checkSystemLibasicamera=no
+checkSystemLibefwfilter=no
+checkSystemLibtoupcam=no
+checkSystemLibaltaircam=no
+checkSystemLibaltaircamlegacy=no
+checkSystemLibstarshootg=no
+checkSystemLibnncam=no
+checkSystemLibmallincam=no
+checkSystemLibomegonprocam=no
+checkSystemLibmeadecam=no
+checkSystemLibqhyccd=no
+checkSystemLibsvbcamerasdk=no
+useisystemInclude=no
+build_libusb=no
+zwoSupportedArch=yes
+case $host in
+  *-linux-*)
+    checkQtForPIC=yes
+    checkSystemDC1394=yes
+    checkSystemLibuvc=yes
+    checkSystemLibasicamera=yes
+    checkSystemLibefwfilter=yes
+    checkSystemLibtoupcam=$armelavailable
+		checkSystemLibqhyccd=$armelavailable
+		checkSystemLibaltaircam=$armelavailable
+		checkSystemLibaltaircamlegacy=$armelavailable
+		checkSystemLibmallincam=$armelavailable
+    checkSystemLibstarshootg=$armelavailable
+    checkSystemLibnncam=$armelavailable
+    checkSystemLibomegonprocam=$armelavailable
+		#checkSystemLibmeadecam=$armelavailable
+    checkSystemLibmeadecam=no
+		checkSystemLibsvbcamerasdk=yes
+    ;;
+  *-apple-*)
+    useisystemInclude=yes
+    build_libusb=yes
+		have_svbcamerasdk=yes
+    ;;
+esac
 
 INCLUDE (${CMAKE_ROOT}/Modules/CheckIncludeFile.cmake)
 INCLUDE (CheckIncludeFileCXX)
