@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.11)
+cmake_policy(SET CMP0079 NEW)
+subdir("   Subdir gphoto2")
+target_sources(oacam PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/GP2oacam.c ${CMAKE_CURRENT_SOURCE_DIR}/GP2dynloader.c ${CMAKE_CURRENT_SOURCE_DIR}/GP2connect.c ${CMAKE_CURRENT_SOURCE_DIR}/GP2common.c ${CMAKE_CURRENT_SOURCE_DIR}/GP2getState.c ${CMAKE_CURRENT_SOURCE_DIR}/GP2control.c ${CMAKE_CURRENT_SOURCE_DIR}/GP2controller.c ${CMAKE_CURRENT_SOURCE_DIR}/GP2callback.c)
+target_link_libraries(oacam PUBLIC gphoto2 ) 

@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.11)
 
 SET( CMAKE_C_STANDARD 99 )
 SET( CMAKE_CXX_STANDARD 11 )
+cmake_policy(SET CMP0075 NEW)
 
 project(liboacam)
 
@@ -22,25 +23,36 @@ project(liboacam)
 
 # qhyccd special stuff see below
 
+
+# TBD udev?
+
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
+
 set(CMAKE_REQUIRED_INCLUDES /usr/local/include)
 
+include(${CMAKE_SOURCE_DIR}/cmake/TargetArch.cmake)
+target_architecture(arch)
+message(${arch})
+
+IF(APPLE)
+    SET(USB_OVERFLOW_HANGS TRUE)
+ENDIF()
 
 INCLUDE (${CMAKE_ROOT}/Modules/CheckIncludeFile.cmake)
 INCLUDE (CheckIncludeFileCXX)
 CHECK_INCLUDE_FILE( unistd.h HAVE_UNISTD_H )
 CHECK_INCLUDE_FILE( errno.h HAVE_ERRNO_H ) 
-CHECK_INCLUDE_FILE( math.h HAVE_MATH_H )
+#CHECK_INCLUDE_FILE( math.h HAVE_MATH_H )
 CHECK_INCLUDE_FILE( limits.h HAVE_LIMITS_H )
-CHECK_INCLUDE_FILE( float.h HAVE_FLOAT_H )
+#CHECK_INCLUDE_FILE( float.h HAVE_FLOAT_H )
 CHECK_INCLUDE_FILE( malloc.h HAVE_MALLOC_H )
-CHECK_INCLUDE_FILE( stdint.h HAVE_STDINT_H )
+#CHECK_INCLUDE_FILE( stdint.h HAVE_STDINT_H )
 CHECK_INCLUDE_FILE( stdlib.h HAVE_STDLIB_H )
 CHECK_INCLUDE_FILE( string.h HAVE_STRING_H )
 CHECK_INCLUDE_FILE( strings.h HAVE_STRINGS_H )
 CHECK_INCLUDE_FILE( sys/time.h HAVE_SYS_TIME_H )
-CHECK_INCLUDE_FILE( fitsio.h HAVE_FITSIO_H )
-CHECK_INCLUDE_FILE( cfitsio/fitsio.h HAVE_CFITSIO_FITSIO_H )
+#CHECK_INCLUDE_FILE( fitsio.h HAVE_FITSIO_H )
+#CHECK_INCLUDE_FILE( cfitsio/fitsio.h HAVE_CFITSIO_FITSIO_H )
 CHECK_INCLUDE_FILE( sys/sendfile.h HAVE_SYS_SENDFILE_H )
 CHECK_INCLUDE_FILE( syslog.h HAVE_SYSLOG_H )
 CHECK_INCLUDE_FILE( stdbool.h HAVE_STDBOOL_H )
@@ -56,52 +68,53 @@ CHECK_INCLUDE_FILE( dlfcn.h HAVE_DLFCN_H )
 
 CHECK_INCLUDE_FILE( flycapture/C/FlyCapture2_C.h HAVE_FLYCAPTURE_C_FLYCAPTURE2_H )
 
-CHECK_INCLUDE_FILE_CXX( cerrno HAVE_CERRNO )
-CHECK_INCLUDE_FILE_CXX( cfloat HAVE_CFLOAT )
-CHECK_INCLUDE_FILE_CXX( climits HAVE_CLIMITS )
-CHECK_INCLUDE_FILE_CXX( cmath HAVE_CMATH )
-CHECK_INCLUDE_FILE_CXX( cstdint HAVE_STDINT )
-CHECK_INCLUDE_FILE_CXX( cstdlib HAVE_CSTDLIB )
-CHECK_INCLUDE_FILE_CXX( cstring HAVE_CSTRING )
-CHECK_INCLUDE_FILE_CXX( cstrings HAVE_CSTRINGS )
+#CHECK_INCLUDE_FILE_CXX( cerrno HAVE_CERRNO )
+#CHECK_INCLUDE_FILE_CXX( cfloat HAVE_CFLOAT )
+#CHECK_INCLUDE_FILE_CXX( climits HAVE_CLIMITS )
+#CHECK_INCLUDE_FILE_CXX( cmath HAVE_CMATH )
+#CHECK_INCLUDE_FILE_CXX( cstdint HAVE_STDINT )
+#CHECK_INCLUDE_FILE_CXX( cstdlib HAVE_CSTDLIB )
+#CHECK_INCLUDE_FILE_CXX( cstring HAVE_CSTRING )
+#CHECK_INCLUDE_FILE_CXX( cstrings HAVE_CSTRINGS )
 
 include(CheckSymbolExists)
 check_symbol_exists(exp10 "math.h" HAVE_EXP10)
-check_symbol_exists(sqrt "math.h" HAVE_SQRT)
+#check_symbol_exists(sqrt "math.h" HAVE_SQRT)
 check_symbol_exists(pow "math.h" HAVE_POW)
 check_symbol_exists(clock_gettime "time.h" HAVE_CLOCK_GETTIME)
 check_symbol_exists(creat64 "fcntl.h" HAVE_CREAT64)
-check_symbol_exists(open64 "fcntl.h" HAVE_OPEN64)
+#check_symbol_exists(open64 "fcntl.h" HAVE_OPEN64)
 check_symbol_exists(fopen64 "stdio.h" HAVE_FOPEN64)
-check_symbol_exists(freopen64 "stdio.h" HAVE_FREOPEN64)
+#check_symbol_exists(freopen64 "stdio.h" HAVE_FREOPEN64)
 check_symbol_exists(fseeki64 "stdio.h" HAVE_FSEEKI64)
 check_symbol_exists(fseeko64 "stdio.h" HAVE_FSEEKO64)
 check_symbol_exists(ftelli64 "stdio.h" HAVE_FTELLI64)
 check_symbol_exists(ftello64 "stdio.h" HAVE_FTELLO64)
 check_symbol_exists(ftdi_tcioflush "ftdi.h" HAVE_FTDI_TCIOFLUSH)
-check_symbol_exists(getcwd "unistd.h" HAVE_GETCWD)
+#check_symbol_exists(getcwd "unistd.h" HAVE_GETCWD)
 check_symbol_exists(lseek64 "unistd.h" HAVE_LSEEK64)
 check_symbol_exists(gettimeofday "sys/time.h" HAVE_GETTIMEOFDAY)
 
-
+CHECK_INCLUDE_FILE( flycapture/C/FlyCapture2_C.h HAVE_LIBFLYCAPTURE2)
 
 include(CheckCXXSourceCompiles)
 check_cxx_source_compiles("int main() { void* p = nullptr; }"
     HAVE_NULLPTR
     FAIL_REGEX "use of undeclared identifier 'nullptr'")
 
-
-# Conditional on use of ASI SDK?
-
 include_directories( /usr/local/include )
 link_directories( /usr/local/lib )
 
-SET(CMAKE_REQUIRED_INCLUDES /usr/local/lib)
-SET(CMAKE_REQUIRED_LIBRARIES uvc;ASICamera2)
 INCLUDE (CheckLibraryExists)
-#Usage: CHECK_LIBRARY_EXISTS(library function location variable)
-CHECK_LIBRARY_EXISTS(ASICamera2 ASIGetNumOfConnectedCameras /usr/local/lib HAVE_LIBASI2)
+SET(CMAKE_REQUIRED_INCLUDES /usr/local/lib)
+SET(CMAKE_REQUIRED_LIBRARIES uvc)
 CHECK_LIBRARY_EXISTS(uvc uvc_init /usr/local/lib HAVE_LIBUVC)
+
+SET(CMAKE_REQUIRED_LIBRARIES ASICamera2)
+CHECK_LIBRARY_EXISTS(ASICamera2 ASIGetNumOfConnectedCameras /usr/local/lib HAVE_LIBASI2) # TBD HOW TO BETTER SET LOCATION?
+
+SET(CMAKE_REQUIRED_LIBRARIES v4l2)
+CHECK_LIBRARY_EXISTS(v4l2 v4l2_open /usr/local/lib HAVE_LIBV4L2)
 
 IF(NOT HAVE_LIBASI2)
 include_directories(${CMAKE_SOURCE_DIR}/ext/libASICamera2/include )
@@ -114,24 +127,51 @@ IF(HAVE_LIBASI2)
     add_definitions(-DHAVE_LIBASI2=1 -DDYNLIB_EXTN_CFLAGS) # TBD ??
 ENDIF()
 
+
+
+
+
+
+
+IF(NOT HAVE_UVC)
+    add_subdirectory(${CMAKE_SOURCE_DIR}/ext/libuvc)
+    SET(HAVE_UVC TRUE)
+ENDIF()
+
+
+cmake_policy(SET CMP0075 NEW)
+
+SET(CMAKE_REQUIRED_LIBRARIES dc1394)
+CHECK_LIBRARY_EXISTS(dc1394 dc1394_new /usr/local/lib HAVE_LIBDC1394)
+
+SET(CMAKE_REQUIRED_LIBRARIES gphoto2)
+CHECK_LIBRARY_EXISTS(gp_context_new gpoto2 /usr/local/lib HAVE_GPHOTO2)
+
+SET(CMAKE_REQUIRED_LIBRARIES "")
+
+
+set(FXLOAD_PATH "\"/usr/local/bin/fxload\"")             # TBD
+set(QHY_FIRMWARE_PATH "\"/usr/local/lib/firmware/qhy\"") # TBD
+
+
 CHECK_LIBRARY_EXISTS(qhyccd ScanQHYCCD /usr/local/lib HAVE_QHYCCD)
 
 include_directories( ${CMAKE_BINARY_DIR} )
 
 SET( HAVE_CONFIG_H TRUE)
 SET( HAVE_LIBDL TRUE)
+SET( STDC_HEADERS TRUE )
+
 add_definitions(-DHAVE_CONFIG_H=1)
 add_definitions(-DHAVE_LIBDL=1)
-add_definitions(-DDYNLIB_EXT_DYLIB)
+add_definitions(-DDYNLIB_EXT_DYLIB) # TBD?
 configure_file(${CMAKE_SOURCE_DIR}/cm_config.h.in ${CMAKE_BINARY_DIR}/config.h)
 
 add_subdirectory(liboacam)
 add_subdirectory(liboavideo)
 add_subdirectory(liboautil)
 
-include(${CMAKE_SOURCE_DIR}/cmake/TargetArch.cmake)
-target_architecture(arch)
-message(${arch})
+
 # LINK FILES...
 
 #armelavailable=yes

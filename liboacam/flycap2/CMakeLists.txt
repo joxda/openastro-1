@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 3.11)
+
+message("   Subdir flycap")
+
+
+target_sources(oacam PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/FC2oacam.c ${CMAKE_CURRENT_SOURCE_DIR}/FC2connect.c ${CMAKE_CURRENT_SOURCE_DIR}/FC2getState.c ${CMAKE_CURRENT_SOURCE_DIR}/FC2control.c ${CMAKE_CURRENT_SOURCE_DIR}/FC2controller.c ${CMAKE_CURRENT_SOURCE_DIR}/FC2callback.c ${CMAKE_CURRENT_SOURCE_DIR}/FC2roi.c ${CMAKE_CURRENT_SOURCE_DIR}/FC2dynloader.c)
+
+set(CMAKE_EXE_LINKER_FLAGS ${CMAKE_EXE_LINKER_FLAGS};-rdynamic)
