@@ -245,7 +245,7 @@ SET( STDC_HEADERS TRUE )
 add_definitions(-DHAVE_CONFIG_H=1)
 add_definitions(-DHAVE_LIBDL=1)
 add_definitions(-DDYNLIB_EXT_DYLIB) # TBD?
-configure_file(${CMAKE_SOURCE_DIR}/cm_config.h.in ${CMAKE_BINARY_DIR}/config.h)
+configure_file(cm_config.h.in config.h)
 
 add_subdirectory(liboacam)
 add_subdirectory(liboavideo)
