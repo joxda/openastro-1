@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.11)
 
+project(liboacam LANGUAGES C CXX)
+
 SET( CMAKE_C_STANDARD 99 )
 SET( CMAKE_CXX_STANDARD 11 )
 cmake_policy(SET CMP0075 NEW)
-
-project(liboacam)
 
 # possibly put checks in separate file?
 
