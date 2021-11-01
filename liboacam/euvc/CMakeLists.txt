@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.11)
  
-message("   Subdir EUVC")
+message("   Subdir euvc")
 
 target_sources(oacam PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/EUVCoacam.c ${CMAKE_CURRENT_SOURCE_DIR}/EUVCconnect.c ${CMAKE_CURRENT_SOURCE_DIR}/EUVCcontrol.c ${CMAKE_CURRENT_SOURCE_DIR}/EUVCcallback.c ${CMAKE_CURRENT_SOURCE_DIR}/EUVCgetState.c ${CMAKE_CURRENT_SOURCE_DIR}/EUVCcontroller.c ${CMAKE_CURRENT_SOURCE_DIR}/EUVCusb.c ${CMAKE_CURRENT_SOURCE_DIR}/EUVCroi.c )
