@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.11)
 
+enable_language( C CXX )
 SET( CMAKE_C_STANDARD 99 )
 SET( CMAKE_CXX_STANDARD 11 )
 cmake_policy(SET CMP0075 NEW)
