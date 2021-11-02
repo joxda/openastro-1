@@ -1,5 +1,5 @@
 
-# add_subdirectory( $(FFMPEG_DIRS) )
+# TBD make conditional on options...
 add_subdirectory( $(LIBUSB_DIRS) )
 add_subdirectory( $(LIBHIDAPI_DIRS) )
 add_subdirectory( $(LIBUVC_DIRS) )

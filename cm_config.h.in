@@ -397,17 +397,17 @@
 /* Define for Solaris 2.5.1 so the uint32_t typedef from <sys/synch.h>,
    <pthread.h>, or <semaphore.h> is not used. If the typedef were allowed, the
    #define below would cause a syntax error. */
-#cmakedefine _UINT32_T 1
+//#cmakedefine _UINT32_T 1
 
 /* Define for Solaris 2.5.1 so the uint64_t typedef from <sys/synch.h>,
    <pthread.h>, or <semaphore.h> is not used. If the typedef were allowed, the
    #define below would cause a syntax error. */
-#cmakedefine _UINT64_T 1
+//#cmakedefine _UINT64_T 1
 
 /* Define for Solaris 2.5.1 so the uint8_t typedef from <sys/synch.h>,
    <pthread.h>, or <semaphore.h> is not used. If the typedef were allowed, the
    #define below would cause a syntax error. */
-#cmakedefine _UINT8_T 1
+//#cmakedefine _UINT8_T 1
 
 /* Define to `__inline__' or `__inline' if that's what the C compiler
    calls it, or to nothing if 'inline' is not supported under any name.  */
@@ -417,19 +417,19 @@
 
 /* Define to the type of a signed integer type of width exactly 16 bits if
    such a type exists and the standard includes do not define it. */
-#cmakedefine int16_t 1
+//#cmakedefine int16_t 1
 
 /* Define to the type of a signed integer type of width exactly 32 bits if
    such a type exists and the standard includes do not define it. */
-#cmakedefine int32_t 1
+//#cmakedefine int32_t 1
 
 /* Define to the type of a signed integer type of width exactly 64 bits if
    such a type exists and the standard includes do not define it. */
-#cmakedefine int64_t 1
+//#cmakedefine int64_t 1
 
 /* Define to the type of a signed integer type of width exactly 8 bits if such
    a type exists and the standard includes do not define it. */
-#cmakedefine int8_t 1
+//#cmakedefine int8_t 1
 
 /* Define to rpl_malloc if the replacement function should be used. */
 #cmakedefine malloc 1
@@ -441,7 +441,7 @@
 #cmakedefine off_t 1
 
 /* Define to rpl_realloc if the replacement function should be used. */
-#cmakedefine realloc 1
+cmakedefine realloc 1
 
 /* Define to `unsigned int' if <sys/types.h> does not define. */
 #cmakedefine size_t 1
@@ -451,16 +451,16 @@
 
 /* Define to the type of an unsigned integer type of width exactly 16 bits if
    such a type exists and the standard includes do not define it. */
-#cmakedefine uint16_t 1
+//#cmakedefine uint16_t 1
 
 /* Define to the type of an unsigned integer type of width exactly 32 bits if
    such a type exists and the standard includes do not define it. */
-#cmakedefine uint32_t 1
+//#cmakedefine uint32_t 1
 
 /* Define to the type of an unsigned integer type of width exactly 64 bits if
    such a type exists and the standard includes do not define it. */
-#cmakedefine uint64_t 1
+//#cmakedefine uint64_t 1
 
 /* Define to the type of an unsigned integer type of width exactly 8 bits if
    such a type exists and the standard includes do not define it. */
-#cmakedefine uint8_t 1
+//#cmakedefine uint8_t 1
