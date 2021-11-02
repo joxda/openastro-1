@@ -1,44 +1,41 @@
-/* FFmpeg is V3 */
-#cmakedefine FFMPEGV3 1
-
 /* Define to 1 if you have the `bzero' function. */
-#cmakedefine HAVE_BZERO 1
+//#cmakedefine HAVE_BZERO 1
 
 /* Define to 1 if you have the <cerrno> header file. */
-#cmakedefine HAVE_CERRNO 1
+//#cmakedefine HAVE_CERRNO 1
 
 /* Define to 1 if you have the <cfitsio/fitsio.h> header file. */
-#cmakedefine HAVE_CFITSIO_FITSIO_H 1
+//#cmakedefine HAVE_CFITSIO_FITSIO_H 1
 
 /* Define to 1 if you have the <cfloat> header file. */
-#cmakedefine HAVE_CFLOAT 1
+//#cmakedefine HAVE_CFLOAT 1
 
 /* Define to 1 if you have the <climits> header file. */
-#cmakedefine HAVE_CLIMITS 1
+//#cmakedefine HAVE_CLIMITS 1
 
 /* Define to 1 if you have the `clock_gettime' function. */
-#cmakedefine HAVE_CLOCK_GETTIME 1
+//#cmakedefine HAVE_CLOCK_GETTIME 1
 
 /* Define to 1 if you have the <cmath> header file. */
-#cmakedefine HAVE_CMATH 1
+//#cmakedefine HAVE_CMATH 1
 
 /* Define to 1 if you have the <CoreMedia/CoreMedia.h> header file. */
-#cmakedefine HAVE_COREMEDIA_COREMEDIA_H 1
+//#cmakedefine HAVE_COREMEDIA_COREMEDIA_H 1
 
 /* Define to 1 if you have the `creat64' function. */
 #cmakedefine HAVE_CREAT64 1
 
 /* Define to 1 if you have the <cstdint> header file. */
-#cmakedefine HAVE_CSTDINT 1
+//#cmakedefine HAVE_CSTDINT 1
 
 /* Define to 1 if you have the <cstdlib> header file. */
-#cmakedefine HAVE_CSTDLIB 1
+//#cmakedefine HAVE_CSTDLIB 1
 
 /* Define to 1 if you have the <cstring> header file. */
-#cmakedefine HAVE_CSTRING 1
+//#cmakedefine HAVE_CSTRING 1
 
 /* Define to 1 if you have the <cstrings> header file. */
-#cmakedefine HAVE_CSTRINGS 1
+//#cmakedefine HAVE_CSTRINGS 1
 
 /* Define to 1 if you have the declaration of `ASI_AUTO_MAX_EXP_MS', and to 0
    if you don't. */
@@ -57,10 +54,10 @@
 #cmakedefine HAVE_FCNTL_H 1
 
 /* Define to 1 if you have the <fitsio.h> header file. */
-#cmakedefine HAVE_FITSIO_H 1
+//#cmakedefine HAVE_FITSIO_H 1
 
 /* Define to 1 if you have the <float.h> header file. */
-#cmakedefine HAVE_FLOAT_H 1
+//#cmakedefine HAVE_FLOAT_H 1
 
 /* Define to 1 if you have the <flycapture/C/FlyCapture2_C.h> header file. */
 #cmakedefine HAVE_FLYCAPTURE_C_FLYCAPTURE2_C_H 1
@@ -69,7 +66,7 @@
 #cmakedefine HAVE_FOPEN64 1
 
 /* Define to 1 if you have the `freopen64' function. */
-#cmakedefine HAVE_FREOPEN64 1
+//#cmakedefine HAVE_FREOPEN64 1
 
 /* Define to 1 if you have the `fseeki64' function. */
 #cmakedefine HAVE_FSEEKI64 1
@@ -90,10 +87,10 @@
 #cmakedefine HAVE_FTELLO64 1
 
 /* Define to 1 if you have the `getcwd' function. */
-#cmakedefine HAVE_GETCWD 1
+//#cmakedefine HAVE_GETCWD 1
 
 /* Define to 1 if you have the `gettimeofday' function. */
-#cmakedefine HAVE_GETTIMEOFDAY 1
+//#cmakedefine HAVE_GETTIMEOFDAY 1
 
 /* Define to 1 if you have the <hidapi/hidapi.h> header file. */
 #cmakedefine HAVE_HIDAPI_HIDAPI_H 1
@@ -144,13 +141,13 @@
 #cmakedefine HAVE_LIBHIDAPI 1
 
 /* Define to 1 if you have the `jpeg' library (-ljpeg). */
-#cmakedefine HAVE_LIBJPEG 1
+//#cmakedefine HAVE_LIBJPEG 1
 
 /* Have libjpeg */
-#cmakedefine HAVE_LIBJPG 1
+//#cmakedefine HAVE_LIBJPG 1
 
 /* Define to 1 if you have the `lzma' library (-llzma). */
-#cmakedefine HAVE_LIBLZMA 1
+//#cmakedefine HAVE_LIBLZMA 1
 
 /* Have Mallincam library support */
 #cmakedefine HAVE_LIBMALLINCAM 1
@@ -165,13 +162,13 @@
 #cmakedefine HAVE_LIBOMEGONPROCAM 1
 
 /* Define to 1 if you have the `png' library (-lpng). */
-#cmakedefine HAVE_LIBPNG 1
+//#cmakedefine HAVE_LIBPNG 1
 
 /* Have qhyccd library support */
 #cmakedefine HAVE_LIBQHYCCD 1
 
 /* Define to 1 if you have the `raw' library (-lraw). */
-#cmakedefine HAVE_LIBRAW 1
+//#cmakedefine HAVE_LIBRAW 1
 
 /* Have Spinnaker_C library */
 #cmakedefine HAVE_LIBSPINNAKER 1
@@ -189,7 +186,7 @@
 #cmakedefine HAVE_LIBSVBCAMERASDK 1
 
 /* Define to 1 if you have the `tiff' library (-ltiff). */
-#cmakedefine HAVE_LIBTIFF 1
+//#cmakedefine HAVE_LIBTIFF 1
 
 /* Have Toupcam library support */
 #cmakedefine HAVE_LIBTOUPCAM 1
@@ -207,10 +204,10 @@
 #cmakedefine HAVE_LIBV4L2 1
 
 /* Define to 1 if you have the `z' library (-lz). */
-#cmakedefine HAVE_LIBZ 1
+//#cmakedefine HAVE_LIBZ 1
 
 /* Have libEFWFilter */
-#cmakedefine HAVE_LIBZWOFW 1
+#cmakedefine HAVE_LIBZWOFW 1 // TBD ?
 
 /* Define to 1 if you have the <limits.h> header file. */
 #cmakedefine HAVE_LIMITS_H 1
@@ -220,7 +217,7 @@
 
 /* Define to 1 if your system has a GNU libc compatible `malloc' function, and
    to 0 otherwise. */
-#cmakedefine HAVE_MALLOC 1
+//#cmakedefine HAVE_MALLOC 1
 
 /* Define to 1 if you have the <malloc.h> header file. */
 #cmakedefine HAVE_MALLOC_H 1
@@ -229,41 +226,41 @@
 #cmakedefine HAVE_MATH_H 1
 
 /* Define to 1 if you have the `memcpy' function. */
-#cmakedefine HAVE_MEMCPY 1
+//#cmakedefine HAVE_MEMCPY 1
 
 /* Define to 1 if you have the <memory.h> header file. */
 #cmakedefine HAVE_MEMORY_H 1
 
 /* Define to 1 if you have the `memset' function. */
-#cmakedefine HAVE_MEMSET 1
+//#cmakedefine HAVE_MEMSET 1
 
 /* Define to 1 if you have the `mkdir' function. */
-#cmakedefine HAVE_MKDIR 1
+//#cmakedefine HAVE_MKDIR 1
 
 /* nullptr is present */
 #cmakedefine HAVE_NULLPTR 1
 
 /* Define to 1 if you have the `open64' function. */
-#cmakedefine HAVE_OPEN64 1
+//#cmakedefine HAVE_OPEN64 1
 
 /* Define to 1 if you have the `pow' function. */
-#cmakedefine HAVE_POW 1
+//#cmakedefine HAVE_POW 1
 
 /* Have Basler Pylon SDK */
 #cmakedefine HAVE_PYLON 1
 
 /* Define to 1 if your system has a GNU libc compatible `realloc' function,
    and to 0 otherwise. */
-#cmakedefine HAVE_REALLOC 1
+//#cmakedefine HAVE_REALLOC 1
 
 /* Define to 1 if you have the `select' function. */
-#cmakedefine HAVE_SELECT 1
+//#cmakedefine HAVE_SELECT 1
 
 /* Define to 1 if you have the `sqrt' function. */
-#cmakedefine HAVE_SQRT 1
+//#cmakedefine HAVE_SQRT 1
 
 /* Define to 1 if you have the `stat64' function. */
-#cmakedefine HAVE_STAT64 1
+//#cmakedefine HAVE_STAT64 1
 
 /* Using static libASICamera2 */
 #cmakedefine HAVE_STATIC_LIBASICAMERA2 1
@@ -284,46 +281,46 @@
 #cmakedefine HAVE_STDBOOL_H 1
 
 /* Define to 1 if you have the <stdint.h> header file. */
-#cmakedefine HAVE_STDINT_H 1
+//#cmakedefine HAVE_STDINT_H 1
 
 /* Define to 1 if you have the <stdlib.h> header file. */
-#cmakedefine HAVE_STDLIB_H 1
+//#cmakedefine HAVE_STDLIB_H 1
 
 /* Define to 1 if you have the `strcasecmp' function. */
-#cmakedefine HAVE_STRCASECMP 1
+//#cmakedefine HAVE_STRCASECMP 1
 
 /* Define to 1 if you have the `strchr' function. */
-#cmakedefine HAVE_STRCHR 1
+//#cmakedefine HAVE_STRCHR 1
 
 /* Define to 1 if you have the `strcspn' function. */
-#cmakedefine HAVE_STRCSPN 1
+//#cmakedefine HAVE_STRCSPN 1
 
 /* Define to 1 if you have the `strdup' function. */
-#cmakedefine HAVE_STRDUP 1
+//#cmakedefine HAVE_STRDUP 1
 
 /* Define to 1 if you have the `strerror' function. */
-#cmakedefine HAVE_STRERROR 1
+//#cmakedefine HAVE_STRERROR 1
 
 /* Define to 1 if you have the <strings.h> header file. */
-#cmakedefine HAVE_STRINGS_H 1
+//#cmakedefine HAVE_STRINGS_H 1
 
 /* Define to 1 if you have the <string.h> header file. */
-#cmakedefine HAVE_STRING_H 1
+//#cmakedefine HAVE_STRING_H 1
 
 /* Define to 1 if you have the `strncasecmp' function. */
-#cmakedefine HAVE_STRNCASECMP 1
+//#cmakedefine HAVE_STRNCASECMP 1
 
 /* Define to 1 if you have the `strndup' function. */
-#cmakedefine HAVE_STRNDUP 1
+//#cmakedefine HAVE_STRNDUP 1
 
 /* Define to 1 if you have the `strrchr' function. */
-#cmakedefine HAVE_STRRCHR 1
+//#cmakedefine HAVE_STRRCHR 1
 
 /* Define to 1 if you have the `strstr' function. */
-#cmakedefine HAVE_STRSTR 1
+//#cmakedefine HAVE_STRSTR 1
 
 /* Define to 1 if you have the `strtoul' function. */
-#cmakedefine HAVE_STRTOUL 1
+//#cmakedefine HAVE_STRTOUL 1
 
 /* Define to 1 if you have the <syslog.h> header file. */
 #cmakedefine HAVE_SYSLOG_H 1
@@ -347,13 +344,13 @@
 #cmakedefine HAVE_UNISTD_H 1
 
 /* Define to 1 if you have the <VideoToolbox/VideoToolbox.h> header file. */
-#cmakedefine HAVE_VIDEOTOOLBOX_VIDEOTOOLBOX_H 1
+//#cmakedefine HAVE_VIDEOTOOLBOX_VIDEOTOOLBOX_H 1
 
 /* Define to 1 if the system has the type `_Bool'. */
-#cmakedefine HAVE__BOOL 1
+//#cmakedefine HAVE__BOOL 1
 
 /* Using internal FFmpeg libraries */
-#cmakedefine INTERNAL_FFMPEG 1
+//#cmakedefine INTERNAL_FFMPEG 1
 
 /* jpeg_mem_src uses const */
 #cmakedefine JPEG_MEM_SRC_USES_CONST 1

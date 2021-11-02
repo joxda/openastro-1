@@ -30,7 +30,6 @@ message(${arch})
 
 
 #checkQtForPIC=no
-#checkSystemFFMPEG=yes
 
 SET(CHECKSYSTEMLIBTOUPCAM FALSE)
 SET(CHECKSYSTEMLIBUSB FALSE)
@@ -175,7 +174,7 @@ endif()
 #fi
 
 
-## rm libwindi..? ffmpeg? libEFWFilter? # rm liboademosaic liboafilterfwheel liboaimgproc?
+## rm libwindi..? # rm liboademosaic liboafilterfwheel liboaimgproc?
 
 # if not like above: ... and similar
 # use_system_libtoupcam=no
@@ -282,7 +281,7 @@ CHECK_INCLUDE_FILE( limits.h HAVE_LIMITS_H )
 #CHECK_INCLUDE_FILE( float.h HAVE_FLOAT_H )
 CHECK_INCLUDE_FILE( malloc.h HAVE_MALLOC_H )
 #CHECK_INCLUDE_FILE( stdint.h HAVE_STDINT_H )
-CHECK_INCLUDE_FILE( stdlib.h HAVE_STDLIB_H )
+#CHECK_INCLUDE_FILE( stdlib.h HAVE_STDLIB_H )
 CHECK_INCLUDE_FILE( string.h HAVE_STRING_H )
 CHECK_INCLUDE_FILE( strings.h HAVE_STRINGS_H )
 CHECK_INCLUDE_FILE( sys/time.h HAVE_SYS_TIME_H )
@@ -315,8 +314,8 @@ CHECK_INCLUDE_FILE( flycapture/C/FlyCapture2_C.h HAVE_FLYCAPTURE_C_FLYCAPTURE2_H
 include(CheckSymbolExists)
 check_symbol_exists(exp10 "math.h" HAVE_EXP10)
 #check_symbol_exists(sqrt "math.h" HAVE_SQRT)
-check_symbol_exists(pow "math.h" HAVE_POW)
-check_symbol_exists(clock_gettime "time.h" HAVE_CLOCK_GETTIME)
+#check_symbol_exists(pow "math.h" HAVE_POW)
+#check_symbol_exists(clock_gettime "time.h" HAVE_CLOCK_GETTIME)
 check_symbol_exists(creat64 "fcntl.h" HAVE_CREAT64)
 #check_symbol_exists(open64 "fcntl.h" HAVE_OPEN64)
 check_symbol_exists(fopen64 "stdio.h" HAVE_FOPEN64)
@@ -328,7 +327,7 @@ check_symbol_exists(ftello64 "stdio.h" HAVE_FTELLO64)
 check_symbol_exists(ftdi_tcioflush "ftdi.h" HAVE_FTDI_TCIOFLUSH)
 #check_symbol_exists(getcwd "unistd.h" HAVE_GETCWD)
 check_symbol_exists(lseek64 "unistd.h" HAVE_LSEEK64)
-check_symbol_exists(gettimeofday "sys/time.h" HAVE_GETTIMEOFDAY)
+#check_symbol_exists(gettimeofday "sys/time.h" HAVE_GETTIMEOFDAY)
 
 CHECK_INCLUDE_FILE( flycapture/C/FlyCapture2_C.h HAVE_LIBFLYCAPTURE2)
 
