@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.11)
 cmake_policy(SET CMP0079 NEW)
 
-message ("   subdir qhyccd")
+message ("   Subdir qhyccd")
 #target_include_directories( oacam PRIVATE ${CMAKE_SOURCE_DIR}/ext/libASICamera2/include )
 
 

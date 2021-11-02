@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.11)
+cmake_minimum_required(VERSION 3.14)
 
 project(liboacam LANGUAGES C CXX)
 
@@ -8,18 +8,10 @@ cmake_policy(SET CMP0075 NEW)
 
 # possibly put checks in separate file?
 
-
-# need to check for dc1394 !
-# also need to go through the different subdirs of liboacam to see what is needed... for what?
-# In file included from /Users/jjjanz/openastro-1/liboacam/iidc/IIDCcontroller.c:39:
-# /Users/jjjanz/openastro-1/liboacam/iidc/IIDCstate.h:31:10: fatal error: 'dc1394/dc1394.h' file not found
-# #include <dc1394/dc1394.h>
-
 # use internal alternatives?
 
 # libraries: want to include vs available?
 
-# $armelavailable logic?
 
 # qhyccd special stuff see below
 
@@ -34,10 +26,59 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/TargetArch.cmake)
 target_architecture(arch)
 message(${arch})
 
+
+
+
+#checkQtForPIC=no
+#checkSystemFFMPEG=yes
+
+SET(CHECKSYSTEMLIBTOUPCAM FALSE)
+SET(CHECKSYSTEMLIBUSB FALSE)
+SET(CHECKSYSTEMDC1394 FALSE)
+SET(CHECKSYSTEMLIBUVC FALSE)
+SET(CHECKSYSTEMLIBUSB FALSE)
+SET(CHECKSYSTEMLIBHIDAPI FALSE)
+SET(CHECKSYSTEMLIBALTAIRCAM FALSE)
+SET(CHECKSYSTEMLIBALTAIRCAMLEGACY FALSE)
+SET(CHECKSYSTEMLIBSTARSHOOTG FALSE)
+SET(CHECKSYSTEMLIBNNCAM FALSE)
+SET(CHECKSYSTEMLIBMALLNCAM FALSE)
+SET(CHECKSYSTEMLIBOMEGONPROCAM FALSE)
+SET(CHECKSYSTEMLIBQHYCCD FALSE)
+SET(CHECKSYSTEMLIBMEADECAM FALSE)
+SET(CHECKSYSTEMLIBSVBCAMERASDK FALSE)
+SET(CHECKSYSTEMLIBSASICAMERA FALSE)
+
+
+#checkSystemLibefwfilter=no
+
 IF(APPLE)
     SET(USB_OVERFLOW_HANGS TRUE)
     SET(HAVE_SVBCAMERASDK TRUE)
     SET(BUILD_LIBUSB TRUE)
+
+    file(CREATE_LINK ${PROJECT_SOURCE_DIR}/ext/libASICamera2/mac/libASICamera2.dylib ${PROJECT_SOURCE_DIR}/ext/libASICamera2/libASICamera2.dylib SYMBOLIC)
+    file(CREATE_LINK ${PROJECT_SOURCE_DIR}/ext/libtoupcam/mac/libtoupcam.dylib ${PROJECT_SOURCE_DIR}/ext/libtoupcam/libtoupcam.dylib SYMBOLIC)
+    file(CREATE_LINK ${PROJECT_SOURCE_DIR}/ext/libaltaircam/mac64/libaltaircam.dylib ${PROJECT_SOURCE_DIR}/ext/libaltaircam/libaltaircam.dylib SYMBOLIC)
+    file(CREATE_LINK ${PROJECT_SOURCE_DIR}/ext/libaltaircamlegacy/mac64/libaltaircam.dylib ${PROJECT_SOURCE_DIR}/ext/libaltaircamlegacy/libaltaircamlegacy.dylib SYMBOLIC)
+    file(CREATE_LINK ${PROJECT_SOURCE_DIR}/ext/libqhyccd/mac64/libqhyccd.dylib ${PROJECT_SOURCE_DIR}/ext/libqhyccd/libqhyccd.dylib SYMBOLIC)
+    file(CREATE_LINK ${PROJECT_SOURCE_DIR}/ext/libstarshootg/mac/libstarshootg.dylib ${PROJECT_SOURCE_DIR}/ext/libstarshootg/libstarshootg.dylib SYMBOLIC)
+    file(CREATE_LINK ${PROJECT_SOURCE_DIR}/ext/libnncam/mac/libnncam.dylib ${PROJECT_SOURCE_DIR}/ext/libnncam/libnncam.dylib SYMBOLIC)
+    file(CREATE_LINK ${PROJECT_SOURCE_DIR}/ext/libomegonprocam/mac64/libomegonprocam.dylib ${PROJECT_SOURCE_DIR}/ext/libomegonprocam/libomegonprocam.dylib SYMBOLIC)
+    file(CREATE_LINK ${PROJECT_SOURCE_DIR}/ext/libSVBCameraSDK/mac64/libSVBCameraSDK.dylib ${PROJECT_SOURCE_DIR}/ext/libSVBCameraSDK/libSVBCameraSDK.dylib SYMBOLIC)
+    file(CREATE_LINK ${PROJECT_SOURCE_DIR}/ext/libmeadecam/mac/libmeadecam.dylib ${PROJECT_SOURCE_DIR}/ext/libmeadecam/libmeadecam.dylib SYMBOLIC)
+    #AC_CONFIG_LINKS([$ext4/libEFWFilter/libEFWFilter.a:ext/libEFWFilter/mac/libEFWFilter.a])
+    #OSX_FRAMEWORKS="-framework Carbon -framework VideoDecodeAcceleration -framework CoreVideo -framework IOKit $FW_CORE_MEDIA $FW_VID_TBOX"
+    #FXLOAD_CFLAGS="-DFXLOAD_PATH=\\\"/MacOS/fxload\\\" -DFIRMWARE_QHY_PATH=\\\"/Resources/firmware/qhy\\\""
+	#	SHLIBS_CFLAGS="-DSHLIB_PATH=\\\"/MacOS/\\\""
+    #if test "x$use_system_libhidapi" == "xno"
+    #then
+    #  LIBHIDAPI_LIBS="\$(top_builddir)/ext/libhidapi/mac/libhidapi.la"
+    #fi
+    #APP_PATH_CFLAGS="-DUSE_APP_PATH=1"
+    #DEFAULT_PATH_CFLAGS="-DUSE_HOME_DEFAULT=1"
+    add_definitions(-DDYNLIB_EXT_DYLIB) 
+
 ENDIF()
 
 
@@ -45,7 +86,6 @@ SET(ARMELAVAILABLE TRUE)
 if(${arch} STREQUAL "arm5" OR ${arch} STREQUAL "arm6")
     set(ARMELAVAILABLE FALSE)
 endif()
-
 
 SET(HAVE_TOUPCAM ${ARMELAVAILABLE})
 SET(HAVE_MALLINCAM ${ARMELAVAILABLE})
@@ -55,6 +95,120 @@ SET(HAVE_STARSHOOTG ${ARMELAVAILABLE})
 SET(HAVE_NNCAM ${ARMELAVAILABLE})
 SET(HAVE_OMEGONPROCAM ${ARMELAVAILABLE})
 SET(HAVE_QHYCCD ${ARMELAVAILABLE})
+
+SET(HAVE_V4L2 FALSE)
+#SET(HAVE_have_udev=no
+#SET(HAVE_have_ftdi1=no
+SET(HAVE_FLYCAPTURE2 FALSE)
+SET(HAVE_SPINNAKER FALSE)
+#SET(HAVE_have_dl=no
+
+
+#have_libavformat=no
+#have_libavutil=no
+#have_libavcodec=no
+SET(INTERNAL_UVC FALSE)
+SET(HAVE_LIBGPHOTO2 FALSE)
+SET(SVNCAMERASDK FALSE)
+SET(HAVE_MEADECAM FALSE)
+SET(HAVE_LIBARAVIS FALSE)
+
+
+if(HAVE_TOUPCAM AND NOT CHECKSYSTEMTOUPCAM) # TBD <- this needs to be done separately for most? then also modify in liboacam cmakelists
+    SET(LIBTOUPCAM_CFLAGS "${PROJECT_SOURCE_DIR}/ext/libtoupcam/include")
+    SET(LIBTOUPCAM_LIBS "")
+    SET(HAVE_LIBTOUPCAM TRUE)
+
+    SET(LIBALTAIRCAM_CFLAGS "${PROJECT_SOURCE_DIR}/ext/libaltaircam/include")
+    SET(LIBALTAIRCAM_LIBS "")
+    SET(HAVE_LIBALTAIRCAM TRUE)
+
+    SET(LIBALTAIRCAM_LEGACY_CFLAGS "${PROJECT_SOURCE_DIR}/ext/libaltaircamlegacy/include")
+    SET(LIBALTAIRCAM_LEGACY_LIBS "")
+    SET(HAVE_LIBALTAIRCAM_LEGACY TRUE)
+
+    SET(LIBSTARSHOOTG_CFLAGS "${PROJECT_SOURCE_DIR}/ext/libstarshootg/include")
+    SET(LIBSTARSHOOTG_LIBS "")
+    SET(HAVE_LIBSTARSHOOTG TRUE)
+
+    SET(LIBNNCAM_CFLAGS "${PROJECT_SOURCE_DIR}/ext/libnncam/include")
+    SET(LIBNNCAM_LIBS "")
+    SET(HAVE_LIBNNCAM TRUE)
+    
+    SET(LIBOMEGONPROCAM_CFLAGS "${PROJECT_SOURCE_DIR}/ext/libomegonprocam/include")
+    SET(LIBOMEGONPROCAM_LIBS "")
+    SET(HAVE_OMEGONPROCAM TRUE)
+
+    SET(LIBMEADECAM_CFLAGS "${PROJECT_SOURCE_DIR}/ext/libmeadecam/include")
+    SET(LIBMEADECAM_LIBS "")
+    SET(HAVE_LIBMEADECAM TRUE)
+
+    SET(HAVE_LIBMALLINCAM TRUE)
+endif()
+
+
+
+
+
+
+#if test "x$use_system_libqhyccd" == "xno"
+#then
+#if test "x$have_qhyccd" != "xno"
+#then
+#LIBQHYCCD_CFLAGS="-I \$(top_srcdir)/ext/libqhyccd/include"
+#LIBQHYCCD_LIBS=""
+#AC_DEFINE([HAVE_LIBQHYCCD],[1],[Have qhyccd library support])
+#fi
+#fi
+
+
+#if test "x$use_system_libsvbcamerasdk" == "xno"
+#then
+#if test "x$have_svbcamerasdk" != "xno"
+#then
+#LIBSVBCAMERASDK_CFLAGS="-I \$(top_srcdir)/ext/libSVBCameraSDK/include"
+##LIBSVBCAMERASDK_LIBS="\$(top_builddir)/ext/libSVBCameraSDK/libSVBCameraSDK.a"
+#LIBSVBCAMERASDK_LIBS=""
+#AC_DEFINE([HAVE_LIBSVBCAMERASDK],[1],[Have SVBony library support])
+##AC_DEFINE([HAVE_STATIC_LIBSVBCAMERASDK],[1],[Using static SVBony library])
+#fi
+#fi
+
+
+## rm libwindi..? ffmpeg? libEFWFilter? # rm liboademosaic liboafilterfwheel liboaimgproc?
+
+# if not like above: ... and similar
+# use_system_libtoupcam=no
+# use_system_libmallincam=no
+# if test "$checkSystemLibtoupcam" == "yes"
+# then
+#   if `$PKG_CONFIG --exists libtoupcam`; then
+#     AC_MSG_NOTICE([Using system libtoupcam library])
+#     flags=`$PKG_CONFIG --cflags-only-I libtoupcam`
+# 		if test "$useisystemInclude" == "yes"; then
+#       flags=`echo "$flags" | sed 's/^-I/-isystem/'`
+#     fi
+#     LIBTOUPCAM_CFLAGS="$flags"
+#     # can't use shared libtoupcam if we're not using the system libusb
+#     # because it will try to pull it in anyhow
+#     if test "x$use_system_libusb" == "xyes"; then
+#       LIBTOUPCAM_LDFLAGS="`$PKG_CONFIG --libs-only-L libtoupcam`"
+#       LIBTOUPCAM_LIBS="`$PKG_CONFIG --libs-only-l libtoupcam`"
+#     else
+#       AC_MSG_WARN([libtoupcam not compatible with internal libusb.  No support for Touptek cameras.])
+#     fi
+#     use_system_libtoupcam=yes
+#     AC_DEFINE([HAVE_LIBTOUPCAM],[1],[Have libtoupcam])
+#   else
+#     AC_CHECK_LIB([toupcam],[Toupcam_Open],[
+#       LIBS="-ltoupcam $LIBS"
+#       AC_DEFINE([HAVE_LIBTOUPCAM],[1],[Have libtoupcam])
+#     ],[
+#       AC_MSG_WARN([libtoupcam not found.  Dynamic support for Touptek cameras.])
+#     ])
+#   fi
+# fi
+
 
 
 #have_v4l2=no
@@ -188,13 +342,13 @@ link_directories( /usr/local/lib )
 
 INCLUDE (CheckLibraryExists)
 SET(CMAKE_REQUIRED_INCLUDES /usr/local/lib)
-SET(CMAKE_REQUIRED_LIBRARIES uvc)
+SET(CMAKE_REQUIRED_LIBRARIES ${CMAKE_REQUIRED_LIBRARIES} uvc)
 CHECK_LIBRARY_EXISTS(uvc uvc_init /usr/local/lib HAVE_LIBUVC)
 
 SET(CMAKE_REQUIRED_LIBRARIES ASICamera2)
 CHECK_LIBRARY_EXISTS(ASICamera2 ASIGetNumOfConnectedCameras /usr/local/lib HAVE_LIBASI2) # TBD HOW TO BETTER SET LOCATION?
 
-SET(CMAKE_REQUIRED_LIBRARIES v4l2)
+SET(CMAKE_REQUIRED_LIBRARIES ${CMAKE_REQUIRED_LIBRARIES} v4l2)
 CHECK_LIBRARY_EXISTS(v4l2 v4l2_open /usr/local/lib HAVE_LIBV4L2)
 
 IF(NOT HAVE_LIBASI2)
@@ -221,10 +375,10 @@ ENDIF()
 
 cmake_policy(SET CMP0075 NEW)
 
-SET(CMAKE_REQUIRED_LIBRARIES dc1394)
+SET(CMAKE_REQUIRED_LIBRARIES ${CMAKE_REQUIRED_LIBRARIES} dc1394)
 CHECK_LIBRARY_EXISTS(dc1394 dc1394_new /usr/local/lib HAVE_LIBDC1394)
 
-SET(CMAKE_REQUIRED_LIBRARIES gphoto2)
+SET(CMAKE_REQUIRED_LIBRARIES ${CMAKE_REQUIRED_LIBRARIES} gphoto2)
 CHECK_LIBRARY_EXISTS(gp_context_new gpoto2 /usr/local/lib HAVE_GPHOTO2)
 
 SET(CMAKE_REQUIRED_LIBRARIES "")
@@ -236,6 +390,30 @@ set(QHY_FIRMWARE_PATH "\"/usr/local/lib/firmware/qhy\"") # TBD
 
 CHECK_LIBRARY_EXISTS(qhyccd ScanQHYCCD /usr/local/lib HAVE_QHYCCD)
 
+
+foreach(inline_keyword "inline" "__inline__" "__inline")
+  if(NOT DEFINED C_INLINE)
+    set(CMAKE_REQUIRED_DEFINITIONS_SAVE ${CMAKE_REQUIRED_DEFINITIONS})
+    set(CMAKE_REQUIRED_DEFINITIONS ${CMAKE_REQUIRED_DEFINITIONS}
+        "-Dinline=${inline_keyword}")
+    check_c_source_compiles("
+        typedef int foo_t;
+        static inline foo_t static_foo() {return 0;}
+        foo_t foo(){return 0;}
+        int main(int argc, char *argv[]) {return 0;}"
+      C_HAS_${inline_keyword})
+    set(CMAKE_REQUIRED_DEFINITIONS ${CMAKE_REQUIRED_DEFINITIONS_SAVE})
+    if(C_HAS_${inline_keyword})
+      set(C_INLINE TRUE)
+      set(INLINE_KEYWORD "${inline_keyword}")
+    endif()
+ endif()
+endforeach()
+if(NOT DEFINED C_INLINE)
+  set(INLINE_KEYWORD)
+endif()
+
+
 include_directories( ${CMAKE_BINARY_DIR} )
 
 SET( HAVE_CONFIG_H TRUE)
@@ -244,7 +422,6 @@ SET( STDC_HEADERS TRUE )
 
 add_definitions(-DHAVE_CONFIG_H=1)
 add_definitions(-DHAVE_LIBDL=1)
-add_definitions(-DDYNLIB_EXT_DYLIB) # TBD?
 configure_file(cm_config.h.in config.h)
 
 add_subdirectory(liboacam)
@@ -252,97 +429,10 @@ add_subdirectory(liboavideo)
 add_subdirectory(liboautil)
 
 
-# LINK FILES...
-
-#armelavailable=yes
-#case $host in
-#  *-apple-*|i?86-*-*|x86_64-*-*|armv[78]l-*-*|aarch64-*-*)
-#		;;
-#  armv[56]l-*-*)
-#		armelavailable=no
-#		;;
-#esac
-
-# have_v4l2=no
-# have_udev=no
-# have_ftdi1=no
-# have_flycapture2=no
-# have_spinnaker=no
-# have_dl=no
-# have_toupcam=$armelavailable
-# have_mallincam=$armelavailable
-# have_altaircam=$armelavailable
-# have_altaircamlegacy=$armelavailable
-# have_starshootg=$armelavailable
-# have_nncam=$armelavailable
-# have_omegonprocam=$armelavailable
-# #have_meadecam=$armelavailable
-# have_meadecam=no
-# have_qhyccd=$armelavailable
-# have_libavformat=no
-# have_libavutil=no
-# have_libavcodec=no
-# internal_uvc=no
-# have_libgphoto2=no
-# have_svbcamerasdk=no
-# have_libaravis=no
-
-# checkQtForPIC=no
-# checkSystemFFMPEG=yes
-# checkSystemLibusb=yes
-# checkSystemDC1394=yes
-# checkSystemLibuvc=no
-# checkSystemLibhidapi=yes
-# checkSystemLibasicamera=no
-# checkSystemLibefwfilter=no
-# checkSystemLibtoupcam=no
-# checkSystemLibaltaircam=no
-# checkSystemLibaltaircamlegacy=no
-# checkSystemLibstarshootg=no
-# checkSystemLibnncam=no
-# checkSystemLibmallincam=no
-# checkSystemLibomegonprocam=no
-# checkSystemLibmeadecam=no
-# checkSystemLibqhyccd=no
-# checkSystemLibsvbcamerasdk=no
-# useisystemInclude=no
-# build_libusb=no
-# zwoSupportedArch=yes
-# case $host in
-#   *-linux-*)
-#     checkQtForPIC=yes
-#     checkSystemDC1394=yes
-#     checkSystemLibuvc=yes
-#     checkSystemLibasicamera=yes
-#     checkSystemLibefwfilter=yes
-#     checkSystemLibtoupcam=$armelavailable
-# 		checkSystemLibqhyccd=$armelavailable
-# 		checkSystemLibaltaircam=$armelavailable
-# 		checkSystemLibaltaircamlegacy=$armelavailable
-# 		checkSystemLibmallincam=$armelavailable
-#     checkSystemLibstarshootg=$armelavailable
-#     checkSystemLibnncam=$armelavailable
-#     checkSystemLibomegonprocam=$armelavailable
-# 		#checkSystemLibmeadecam=$armelavailable
-#     checkSystemLibmeadecam=no
-# 		checkSystemLibsvbcamerasdk=yes
-#     ;;
-#   *-apple-*)
-#     useisystemInclude=yes
-#     build_libusb=yes
-# 		have_svbcamerasdk=yes
-#     ;;
-# esac
 
 
 # all kinds of logics to find libraries and to choose whether to use system or provided versions...
 
-
-
-
-# Check config.h
-# and oa_common.h
-# for things that need to be checked and defined...
 # also need to find and check the dependencies / and or build the ext stuff
 
 # FXLOAD_CFLAGS="-DFXLOAD_PATH=\\\"\$(bindir)/fxload\\\" -DFIRMWARE_QHY_PATH=\\\"/lib/firmware/qhy\\\""

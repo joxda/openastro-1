@@ -1,5 +1,5 @@
 
-add_subdirectory( $(FFMPEG_DIRS) )
+# add_subdirectory( $(FFMPEG_DIRS) )
 add_subdirectory( $(LIBUSB_DIRS) )
 add_subdirectory( $(LIBHIDAPI_DIRS) )
 add_subdirectory( $(LIBUVC_DIRS) )

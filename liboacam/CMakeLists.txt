@@ -171,6 +171,23 @@ if(HAVE_LIBV4L2)
    endif()
 endif()
 
+if(HAVE_LIBTOUPCAM)
+    add_subdirectory(toupcam)
+    add_subdirectory(starshootg)
+    add_subdirectory(risingcam)
+    add_subdirectory(omegonpro)
+    add_subdirectory(meadecam)
+    add_subdirectory(mallincam)
+    add_subdirectory(altair-legacy)
+    add_subdirectory(altair)
+    if(${LIBTOUPCAM_LIBS} NOT STREQUAL "")
+        target_link_libraries(oacam PUBLIC ${LIBTOUPCAM_LIBS})
+    endif()
+    target_compile_options(oacam PRIVATE -Wno-visibility)
+endif()
+
+
+
 target_include_directories(oacam PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../include)                                                          
 file(GLOB_RECURSE INCLUDE_FILES "../include/*.h*")                                                                                                 
 set_target_properties(                                                                                                                             oacam PROPERTIES

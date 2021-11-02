@@ -1,18 +1,11 @@
 // PLUS ALL LIBRARY STUFF.... MAYBE NOT ALL OF THESE ARE NEEDED?
 
-AC_LANG_PUSH(C++)
-AC_COMPILE_IFELSE([AC_LANG_SOURCE([
-			#include <stdio.h>
-      int main()
-      {
-				void		*a = nullptr;
-				printf ( "%p\n", a );
-      }])],
-      [AC_DEFINE([HAVE_NULLPTR],[1],[nullptr is present])],[])
-AC_LANG_POP(C++)
+LIBJPEG
 
 
 
+
+ALL OF THE FOLLOWING DO NOT SEEM TO MATTER FOR MY PURPOSES
 #undef HAVE_MALLOC/ / gnu libc compatible
 
 #undef HAVE_MEMCPY
@@ -55,13 +48,9 @@ AC_LANG_POP(C++)
 /* jpeg_mem_src uses const */
 #undef JPEG_MEM_SRC_USES_CONST
 /* Define to 1 if you have the ANSI C header files. */
-#undef STDC_HEADERS
 
-/* USB overflow causes hang */
-#undef USB_OVERFLOW_HANGS
 
-/* Memory for V4L2 buffers may be tight */
-#undef V4L2_MEMORY_RESTRICTED
+
 
 /* Define to `__inline__' or `__inline' if that's what the C compiler
    calls it, or to nothing if 'inline' is not supported under any name.  */
