@@ -302,10 +302,10 @@
 //#cmakedefine HAVE_STRERROR 1
 
 /* Define to 1 if you have the <strings.h> header file. */
-//#cmakedefine HAVE_STRINGS_H 1
+#cmakedefine HAVE_STRINGS_H 1
 
 /* Define to 1 if you have the <string.h> header file. */
-//#cmakedefine HAVE_STRING_H 1
+#cmakedefine HAVE_STRING_H 1
 
 /* Define to 1 if you have the `strncasecmp' function. */
 //#cmakedefine HAVE_STRNCASECMP 1
@@ -438,7 +438,7 @@
 #cmakedefine off_t 1
 
 /* Define to rpl_realloc if the replacement function should be used. */
-cmakedefine realloc 1
+#cmakedefine realloc 1
 
 /* Define to `unsigned int' if <sys/types.h> does not define. */
 #cmakedefine size_t 1

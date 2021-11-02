@@ -390,6 +390,8 @@ set(QHY_FIRMWARE_PATH "\"/usr/local/lib/firmware/qhy\"") # TBD
 CHECK_LIBRARY_EXISTS(qhyccd ScanQHYCCD /usr/local/lib HAVE_QHYCCD)
 
 
+include(CheckCSourceCompiles)
+
 foreach(inline_keyword "inline" "__inline__" "__inline")
   if(NOT DEFINED C_INLINE)
     set(CMAKE_REQUIRED_DEFINITIONS_SAVE ${CMAKE_REQUIRED_DEFINITIONS})
