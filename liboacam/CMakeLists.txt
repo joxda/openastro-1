@@ -121,7 +121,7 @@ message("CHECK THIS OUT ${CMAKE_CURRENT_BINARY_DIR}/ }")
 add_library(oacam control.c oacam.c unimplemented.c utils.c timer.c)
 set_property(TARGET oacam PROPERTY C_STANDARD 99)     
 
-target_include_directories( oacam PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/../ )
+target_include_directories( oacam PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/../ ${CMAKE_CURRENT_SOURCE_DIR}/../include )
 
 target_include_directories( oacam PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} )
 target_include_directories( oacam PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../include )
@@ -131,7 +131,7 @@ endif()
 target_include_directories( oacam PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../ext/libASICamera/include )
 target_include_directories( oacam PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../ext/libtoupcam/include )
 target_include_directories( oacam PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../ext/libqhyccd/include )
-
+target_include_directories( oacam PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/../ )
 
 
 add_subdirectory(euvc)
