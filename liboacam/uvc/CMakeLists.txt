@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.11)
  
 cmake_policy(SET CMP0079 NEW)
 
-target_include_directories( oacam PRIVATE ${CMAKE_SOURCE_DIR}/ext/libuvc/include )
+target_include_directories( oacam PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../ext/libuvc/include )
 
 message("   Subdir uvc")
 
