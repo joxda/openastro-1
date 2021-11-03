@@ -7,27 +7,18 @@ SET( CMAKE_CXX_STANDARD 11 )
 cmake_policy(SET CMP0075 NEW)
 
 # possibly put checks in separate file?
-
 # use internal alternatives?
-
 # libraries: want to include vs available?
-
-
 # qhyccd special stuff see below
-
-
 # TBD udev?
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake/")
 
 set(CMAKE_REQUIRED_INCLUDES /usr/local/include)
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/TargetArch.cmake)
 target_architecture(arch)
 message(${arch})
-
-
-
 
 #checkQtForPIC=no
 
@@ -48,7 +39,6 @@ SET(CHECKSYSTEMLIBMEADECAM FALSE)
 SET(CHECKSYSTEMLIBSVBCAMERASDK FALSE)
 SET(CHECKSYSTEMLIBSASICAMERA FALSE)
 
-
 #checkSystemLibefwfilter=no
 
 IF(APPLE)
@@ -56,17 +46,16 @@ IF(APPLE)
     SET(HAVE_SVBCAMERASDK TRUE)
     SET(BUILD_LIBUSB TRUE)
 
-    file(CREATE_LINK ${PROJECT_SOURCE_DIR}/ext/libASICamera2/mac/libASICamera2.dylib ${PROJECT_SOURCE_DIR}/ext/libASICamera2/libASICamera2.dylib SYMBOLIC)
-    file(CREATE_LINK ${PROJECT_SOURCE_DIR}/ext/libtoupcam/mac/libtoupcam.dylib ${PROJECT_SOURCE_DIR}/ext/libtoupcam/libtoupcam.dylib SYMBOLIC)
-    file(CREATE_LINK ${PROJECT_SOURCE_DIR}/ext/libaltaircam/mac64/libaltaircam.dylib ${PROJECT_SOURCE_DIR}/ext/libaltaircam/libaltaircam.dylib SYMBOLIC)
-    file(CREATE_LINK ${PROJECT_SOURCE_DIR}/ext/libaltaircamlegacy/mac64/libaltaircam.dylib ${PROJECT_SOURCE_DIR}/ext/libaltaircamlegacy/libaltaircamlegacy.dylib SYMBOLIC)
-    file(CREATE_LINK ${PROJECT_SOURCE_DIR}/ext/libqhyccd/mac64/libqhyccd.dylib ${PROJECT_SOURCE_DIR}/ext/libqhyccd/libqhyccd.dylib SYMBOLIC)
-    file(CREATE_LINK ${PROJECT_SOURCE_DIR}/ext/libstarshootg/mac/libstarshootg.dylib ${PROJECT_SOURCE_DIR}/ext/libstarshootg/libstarshootg.dylib SYMBOLIC)
-    file(CREATE_LINK ${PROJECT_SOURCE_DIR}/ext/libnncam/mac/libnncam.dylib ${PROJECT_SOURCE_DIR}/ext/libnncam/libnncam.dylib SYMBOLIC)
-    file(CREATE_LINK ${PROJECT_SOURCE_DIR}/ext/libomegonprocam/mac64/libomegonprocam.dylib ${PROJECT_SOURCE_DIR}/ext/libomegonprocam/libomegonprocam.dylib SYMBOLIC)
-    file(CREATE_LINK ${PROJECT_SOURCE_DIR}/ext/libSVBCameraSDK/mac64/libSVBCameraSDK.dylib ${PROJECT_SOURCE_DIR}/ext/libSVBCameraSDK/libSVBCameraSDK.dylib SYMBOLIC)
-    file(CREATE_LINK ${PROJECT_SOURCE_DIR}/ext/libmeadecam/mac/libmeadecam.dylib ${PROJECT_SOURCE_DIR}/ext/libmeadecam/libmeadecam.dylib SYMBOLIC)
-    #AC_CONFIG_LINKS([$ext4/libEFWFilter/libEFWFilter.a:ext/libEFWFilter/mac/libEFWFilter.a])
+    file(CREATE_LINK ${CMAKE_CURRENT_SOURCE_DIR}/ext/libASICamera2/mac/libASICamera2.dylib ${CMAKE_CURRENT_SOURCE_DIR}/ext/libASICamera2/libASICamera2.dylib SYMBOLIC)
+    file(CREATE_LINK ${CMAKE_CURRENT_SOURCE_DIR}/ext/libtoupcam/mac/libtoupcam.dylib ${CMAKE_CURRENT_SOURCE_DIR}/ext/libtoupcam/libtoupcam.dylib SYMBOLIC)
+    file(CREATE_LINK ${CMAKE_CURRENT_SOURCE_DIR}/ext/libaltaircam/mac64/libaltaircam.dylib ${CMAKE_CURRENT_SOURCE_DIR}/ext/libaltaircam/libaltaircam.dylib SYMBOLIC)
+    file(CREATE_LINK ${CMAKE_CURRENT_SOURCE_DIR}/ext/libaltaircamlegacy/mac64/libaltaircam.dylib ${CMAKE_CURRENT_SOURCE_DIR}/ext/libaltaircamlegacy/libaltaircamlegacy.dylib SYMBOLIC)
+    file(CREATE_LINK ${CMAKE_CURRENT_SOURCE_DIR}/ext/libqhyccd/mac64/libqhyccd.dylib ${CMAKE_CURRENT_SOURCE_DIR}/ext/libqhyccd/libqhyccd.dylib SYMBOLIC)
+    file(CREATE_LINK ${CMAKE_CURRENT_SOURCE_DIR}/ext/libstarshootg/mac/libstarshootg.dylib ${CMAKE_CURRENT_SOURCE_DIR}/ext/libstarshootg/libstarshootg.dylib SYMBOLIC)
+    file(CREATE_LINK ${CMAKE_CURRENT_SOURCE_DIR}/ext/libnncam/mac/libnncam.dylib ${CMAKE_CURRENT_SOURCE_DIR}/ext/libnncam/libnncam.dylib SYMBOLIC)
+    file(CREATE_LINK ${CMAKE_CURRENT_SOURCE_DIR}/ext/libomegonprocam/mac64/libomegonprocam.dylib ${CMAKE_CURRENT_SOURCE_DIR}/ext/libomegonprocam/libomegonprocam.dylib SYMBOLIC)
+    file(CREATE_LINK ${CMAKE_CURRENT_SOURCE_DIR}/ext/libSVBCameraSDK/mac64/libSVBCameraSDK.dylib ${CMAKE_CURRENT_SOURCE_DIR}/ext/libSVBCameraSDK/libSVBCameraSDK.dylib SYMBOLIC)
+    file(CREATE_LINK ${CMAKE_CURRENT_SOURCE_DIR}/ext/libmeadecam/mac/libmeadecam.dylib ${CMAKE_CURRENT_SOURCE_DIR}/ext/libmeadecam/libmeadecam.dylib SYMBOLIC)
     #OSX_FRAMEWORKS="-framework Carbon -framework VideoDecodeAcceleration -framework CoreVideo -framework IOKit $FW_CORE_MEDIA $FW_VID_TBOX"
     #FXLOAD_CFLAGS="-DFXLOAD_PATH=\\\"/MacOS/fxload\\\" -DFIRMWARE_QHY_PATH=\\\"/Resources/firmware/qhy\\\""
 	#	SHLIBS_CFLAGS="-DSHLIB_PATH=\\\"/MacOS/\\\""
@@ -102,10 +91,6 @@ SET(HAVE_FLYCAPTURE2 FALSE)
 SET(HAVE_SPINNAKER FALSE)
 #SET(HAVE_have_dl=no
 
-
-#have_libavformat=no
-#have_libavutil=no
-#have_libavcodec=no
 SET(INTERNAL_UVC FALSE)
 SET(HAVE_LIBGPHOTO2 FALSE)
 SET(SVNCAMERASDK FALSE)
@@ -114,31 +99,31 @@ SET(HAVE_LIBARAVIS FALSE)
 
 
 if(HAVE_TOUPCAM AND NOT CHECKSYSTEMTOUPCAM) # TBD <- this needs to be done separately for most? then also modify in liboacam cmakelists
-    SET(LIBTOUPCAM_CFLAGS "${PROJECT_SOURCE_DIR}/ext/libtoupcam/include")
+    SET(LIBTOUPCAM_CFLAGS "${CMAKE_CURRENT_SOURCE_DIR}/ext/libtoupcam/include")
     SET(LIBTOUPCAM_LIBS "")
     SET(HAVE_LIBTOUPCAM TRUE)
 
-    SET(LIBALTAIRCAM_CFLAGS "${PROJECT_SOURCE_DIR}/ext/libaltaircam/include")
+    SET(LIBALTAIRCAM_CFLAGS "${CMAKE_CURRENT_SOURCE_DIR}/ext/libaltaircam/include")
     SET(LIBALTAIRCAM_LIBS "")
     SET(HAVE_LIBALTAIRCAM TRUE)
 
-    SET(LIBALTAIRCAM_LEGACY_CFLAGS "${PROJECT_SOURCE_DIR}/ext/libaltaircamlegacy/include")
+    SET(LIBALTAIRCAM_LEGACY_CFLAGS "${CMAKE_CURRENT_SOURCE_DIR}/ext/libaltaircamlegacy/include")
     SET(LIBALTAIRCAM_LEGACY_LIBS "")
     SET(HAVE_LIBALTAIRCAM_LEGACY TRUE)
 
-    SET(LIBSTARSHOOTG_CFLAGS "${PROJECT_SOURCE_DIR}/ext/libstarshootg/include")
+    SET(LIBSTARSHOOTG_CFLAGS "${CMAKE_CURRENT_SOURCE_DIR}/ext/libstarshootg/include")
     SET(LIBSTARSHOOTG_LIBS "")
     SET(HAVE_LIBSTARSHOOTG TRUE)
 
-    SET(LIBNNCAM_CFLAGS "${PROJECT_SOURCE_DIR}/ext/libnncam/include")
+    SET(LIBNNCAM_CFLAGS "${CMAKE_CURRENT_SOURCE_DIR}/ext/libnncam/include")
     SET(LIBNNCAM_LIBS "")
     SET(HAVE_LIBNNCAM TRUE)
     
-    SET(LIBOMEGONPROCAM_CFLAGS "${PROJECT_SOURCE_DIR}/ext/libomegonprocam/include")
+    SET(LIBOMEGONPROCAM_CFLAGS "${CMAKE_CURRENT_SOURCE_DIR}/ext/libomegonprocam/include")
     SET(LIBOMEGONPROCAM_LIBS "")
     SET(HAVE_OMEGONPROCAM TRUE)
 
-    SET(LIBMEADECAM_CFLAGS "${PROJECT_SOURCE_DIR}/ext/libmeadecam/include")
+    SET(LIBMEADECAM_CFLAGS "${CMAKE_CURRENT_SOURCE_DIR}/ext/libmeadecam/include")
     SET(LIBMEADECAM_LIBS "")
     SET(HAVE_LIBMEADECAM TRUE)
 
@@ -351,8 +336,8 @@ SET(CMAKE_REQUIRED_LIBRARIES ${CMAKE_REQUIRED_LIBRARIES} v4l2)
 CHECK_LIBRARY_EXISTS(v4l2 v4l2_open /usr/local/lib HAVE_LIBV4L2)
 
 IF(NOT HAVE_LIBASI2)
-include_directories(${CMAKE_SOURCE_DIR}/ext/libASICamera2/include )
-link_directories(${CMAKE_SOURCE_DIR}/ext/libASICamera2/mac )
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/ext/libASICamera2/include )
+link_directories(${CMAKE_CURRENT_SOURCE_DIR}/ext/libASICamera2/mac )
 SET( HAVE_LIBASI2 TRUE)
 ENDIF()
 
@@ -362,7 +347,7 @@ IF(HAVE_LIBASI2)
 ENDIF()
 
 IF(NOT HAVE_LIBUVC)
-    add_subdirectory(${CMAKE_SOURCE_DIR}/ext/libuvc)
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/ext/libuvc)
     SET(HAVE_LIBUVC TRUE)
 ENDIF()
 
