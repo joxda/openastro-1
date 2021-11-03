@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.11)
 cmake_policy(SET CMP0079 NEW)
 
 message ("   Subdir zwo")
+target_include_directories( oacam PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../ext/libASICamera2/include )
 
 #  $(SHLIBS_CFLAGS) $(LIBASI2_CFLAGS) \
 #  $(DYNLIB_EXTN_CFLAGS)
