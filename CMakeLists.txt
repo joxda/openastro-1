@@ -400,7 +400,7 @@ if(NOT DEFINED C_INLINE)
 endif()
 
 
-include_directories( ${CMAKE_BINARY_DIR} )
+include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 
 SET( HAVE_CONFIG_H TRUE)
 SET( HAVE_LIBDL TRUE)
