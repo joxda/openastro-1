@@ -14,8 +14,6 @@ cmake_policy(SET CMP0075 NEW)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake/")
 
-set(CMAKE_REQUIRED_INCLUDES /usr/local/include)
-
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/TargetArch.cmake)
 target_architecture(arch)
 message(${arch})
@@ -259,6 +257,9 @@ endif()
 
 INCLUDE (${CMAKE_ROOT}/Modules/CheckIncludeFile.cmake)
 INCLUDE (CheckIncludeFileCXX)
+
+SET(CMAKE_REQUIRED_INCLUDES ${INCLUDE_DIRECTORIES};/usr/local/include )
+
 CHECK_INCLUDE_FILE( unistd.h HAVE_UNISTD_H )
 CHECK_INCLUDE_FILE( errno.h HAVE_ERRNO_H ) 
 #CHECK_INCLUDE_FILE( math.h HAVE_MATH_H )
@@ -325,7 +326,7 @@ include_directories( /usr/local/include )
 link_directories( /usr/local/lib )
 
 INCLUDE (CheckLibraryExists)
-SET(CMAKE_REQUIRED_INCLUDES /usr/local/lib)
+SET(CMAKE_REQUIRED_INCLUDES ${LINK_DIRECTORIES};/usr/local/lib)
 SET(CMAKE_REQUIRED_LIBRARIES ${CMAKE_REQUIRED_LIBRARIES} uvc)
 CHECK_LIBRARY_EXISTS(uvc uvc_init /usr/local/lib HAVE_LIBUVC)
 
@@ -398,9 +399,6 @@ endforeach()
 if(NOT DEFINED C_INLINE)
   set(INLINE_KEYWORD)
 endif()
-
-
-include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 
 SET( HAVE_CONFIG_H TRUE)
 SET( HAVE_LIBDL TRUE)

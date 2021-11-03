@@ -117,19 +117,22 @@ message( ${CMAKE_CURRENT_SOURCE_DIR}/../ext/libASICamera2/include  )
 #	$(MEADECAMLIB)
 
 
-
-include_directories( ${CMAKE_CURRENT_SOURCE_DIR} )
-include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/../include )
-if(BUILD_LIBUSB)
-    include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/../ext/libusb )
-endif()
-include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/../ext/libASICamera/include )
-include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/../ext/libtoupcam/include )
-include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/../ext/libqhyccd/include )
-
-
+message("CHECK THIS OUT ${CMAKE_CURRENT_BINARY_DIR}/ }")
 add_library(oacam control.c oacam.c unimplemented.c utils.c timer.c)
 set_property(TARGET oacam PROPERTY C_STANDARD 99)     
+
+target_include_directories( oacam PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/../ )
+
+target_include_directories( oacam PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} )
+target_include_directories( oacam PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../include )
+if(BUILD_LIBUSB)
+    target_include_directories( oacam PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../ext/libusb )
+endif()
+target_include_directories( oacam PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../ext/libASICamera/include )
+target_include_directories( oacam PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../ext/libtoupcam/include )
+target_include_directories( oacam PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../ext/libqhyccd/include )
+
+
 
 add_subdirectory(euvc)
 add_subdirectory(pwc)
@@ -171,7 +174,7 @@ if(HAVE_LIBV4L2)
    endif()
 endif()
 
-if(HAVE_LIBTOUPCAM)
+if(HAVE_LIBTOUPCAM) # TBD ONE BY ONE
     add_subdirectory(toupcam)
     add_subdirectory(starshootg)
     add_subdirectory(risingcam)
