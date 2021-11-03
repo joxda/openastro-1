@@ -188,7 +188,7 @@ endif()
 
 
 
-target_include_directories(oacam PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../include)                                                          
+target_include_directories(oacam PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../include ${CMAKE_CURRENT_SOURCE_DIR})                                                          
 file(GLOB_RECURSE INCLUDE_FILES "../include/*.h*")                                                                                                 
 set_target_properties(                                                                                                                             oacam PROPERTIES
     PUBLIC_HEADER "${INCLUDE_FILES}"                                                                                                            
