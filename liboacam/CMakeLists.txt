@@ -117,6 +117,7 @@ message( ${CMAKE_CURRENT_SOURCE_DIR}/../ext/libASICamera2/include  )
 
 message("CHECK THIS OUT ${CMAKE_CURRENT_BINARY_DIR}/ }")
 add_library(oacam STATIC control.c oacam.c unimplemented.c utils.c timer.c)
+add_library(liboacam::oacam ALIAS oacam)
 
 set_target_properties(oacam PROPERTIES OUTPUT_NAME "oacam")
 set_target_properties(oacam PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
