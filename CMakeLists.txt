@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
-project(liboacam LANGUAGES C CXX)
+project(oalib LANGUAGES C CXX)
 
 SET( CMAKE_C_STANDARD 99 )
 SET( CMAKE_CXX_STANDARD 11 )

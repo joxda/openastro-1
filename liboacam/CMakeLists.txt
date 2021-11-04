@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 3.11)
 
-project(liboacam)
 message( ${CMAKE_CURRENT_SOURCE_DIR}/../ext/libASICamera2/include  )
 
 #  $(LIBUSB_CFLAGS) $(LIBUVC_CFLAGS) \
@@ -132,6 +131,7 @@ target_include_directories( oacam PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../ext/libA
 target_include_directories( oacam PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../ext/libtoupcam/include )
 target_include_directories( oacam PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../ext/libqhyccd/include )
 target_include_directories( oacam PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/../ )
+target_include_directories( oacam PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/../include )
 
 
 add_subdirectory(euvc)
