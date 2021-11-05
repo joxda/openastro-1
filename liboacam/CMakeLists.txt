@@ -124,18 +124,18 @@ set_target_properties(oacam PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
 
 set_property(TARGET oacam PROPERTY C_STANDARD 99)     
 
-target_include_directories( oacam PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/../ ${CMAKE_CURRENT_SOURCE_DIR}/../include )
+target_include_directories( oacam PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/../ ${CMAKE_CURRENT_SOURCE_DIR}/../include )
 
-target_include_directories( oacam PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} )
-target_include_directories( oacam PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../include )
+target_include_directories( oacam PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} )
+target_include_directories( oacam PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include )
 if(BUILD_LIBUSB)
-    target_include_directories( oacam PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../ext/libusb )
+    target_include_directories( oacam PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../ext/libusb )
 endif()
-target_include_directories( oacam PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../ext/libASICamera/include )
-target_include_directories( oacam PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../ext/libtoupcam/include )
-target_include_directories( oacam PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../ext/libqhyccd/include )
-target_include_directories( oacam PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/../ )
-target_include_directories( oacam PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/../include )
+target_include_directories( oacam PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../ext/libASICamera/include )
+target_include_directories( oacam PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../ext/libtoupcam/include )
+target_include_directories( oacam PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../ext/libqhyccd/include )
+target_include_directories( oacam PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/../ )
+target_include_directories( oacam PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/../include )
 
 
 add_subdirectory(euvc)
@@ -188,26 +188,22 @@ if(HAVE_LIBTOUPCAM) # TBD ONE BY ONE
     add_subdirectory(altair-legacy)
     add_subdirectory(altair)
     if(${LIBTOUPCAM_LIBS} NOT STREQUAL "")
-        target_link_libraries(oacam PUBLIC ${LIBTOUPCAM_LIBS})
+        target_link_libraries(oacam PRIVATE ${LIBTOUPCAM_LIBS})
     endif()
     target_compile_options(oacam PRIVATE -Wno-visibility)
 endif()
 
 
 
-target_include_directories(oacam PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../include ${CMAKE_CURRENT_SOURCE_DIR})                                                          
+target_include_directories(oacam PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include ${CMAKE_CURRENT_SOURCE_DIR})
 file(GLOB_RECURSE INCLUDE_FILES "../include/*.h*") 
 set(INCLUDE_FILES ${INCLUDE_FILES};${CMAKE_CURRENT_BINARY_DIR}/../config.h)
-set_target_properties(                                                                                                                             oacam PROPERTIES
-    PUBLIC_HEADER "${INCLUDE_FILES}"                                                                                                            
-)          
+set_target_properties(oacam PROPERTIES PUBLIC_HEADER "${INCLUDE_FILES}")
 
 # DO SUMMARY !!
 
-install(TARGETS oacam LIBRARY PUBLIC_HEADER DESTINATION include)
-include(GNUInstallDirs)
 install(TARGETS oacam EXPORT oacam LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 #install(FILES ${CMAKE_CURRENT_BINARY_DIR}/../config.h DESTINATION etc/solshare_stats COMPONENT config)
 
-#install(EXPORT oacam DESTINATION ${CMAKE_INSTALL_BINDIR}/cmake/liboacam NAMESPACE liboacam:: DESTINATION "liboacamConfigTargets.cmake")
+install(EXPORT oacam DESTINATION ${CMAKE_INSTALL_BINDIR}/cmake/liboacam NAMESPACE liboacam:: DESTINATION "liboacamConfigTargets.cmake")

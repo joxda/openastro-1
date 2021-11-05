@@ -10,4 +10,4 @@ target_include_directories( oautil PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../includ
 target_include_directories( oautil PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/../ )
 
 install(TARGETS oautil EXPORT oautil LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
-#install(EXPORT oautil DESTINATION ${CMAKE_INSTALL_BINDIR}/cmake/liboacam NAMESPACE liboacam:: DESTINATION "liboautilConfigTargets.cmake")
+install(EXPORT oautil DESTINATION ${CMAKE_INSTALL_BINDIR}/cmake/liboacam NAMESPACE liboacam:: DESTINATION "liboautilConfigTargets.cmake")

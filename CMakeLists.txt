@@ -408,6 +408,9 @@ add_definitions(-DHAVE_CONFIG_H=1)
 add_definitions(-DHAVE_LIBDL=1)
 configure_file(cm_config.h.in config.h)
 
+
+include(GNUInstallDirs)
+
 add_subdirectory(liboacam)
 add_subdirectory(liboavideo)
 add_subdirectory(liboautil)

@@ -10,4 +10,4 @@ target_include_directories( oavideo PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../inclu
 target_include_directories( oavideo PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/../ )
 
 install(TARGETS oavideo EXPORT oavideo LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}  RUNTIME  DESTINATION ${CMAKE_INSTALL_BINDIR})
-#install(EXPORT oavideo DESTINATION ${CMAKE_INSTALL_BINDIR}/cmake/liboacam NAMESPACE liboacam:: DESTINATION "liboauvideoConfigTargets.cmake")
+install(EXPORT oavideo DESTINATION ${CMAKE_INSTALL_BINDIR}/cmake/liboacam NAMESPACE liboacam:: DESTINATION "liboauvideoConfigTargets.cmake")
