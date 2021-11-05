@@ -196,7 +196,8 @@ endif()
 
 
 target_include_directories(oacam PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../include ${CMAKE_CURRENT_SOURCE_DIR})                                                          
-file(GLOB_RECURSE INCLUDE_FILES "../include/*.h*")                                                                                                 
+file(GLOB_RECURSE INCLUDE_FILES "../include/*.h*") 
+set(INCLUDE_FILES ${INCLUDE_FILES};${CMAKE_CURRENT_BINARY_DIR}/../config.h)
 set_target_properties(                                                                                                                             oacam PROPERTIES
     PUBLIC_HEADER "${INCLUDE_FILES}"                                                                                                            
 )          
@@ -205,3 +206,8 @@ set_target_properties(                                                          
 
 install(TARGETS oacam LIBRARY PUBLIC_HEADER DESTINATION include)
 
+install(TARGETS oacam EXPORT oacam LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} PUBLIC_HEADER DESTINATION include)
+
+#install(FILES ${CMAKE_CURRENT_BINARY_DIR}/../config.h DESTINATION etc/solshare_stats COMPONENT config)
+
+#install(EXPORT oacam DESTINATION ${CMAKE_INSTALL_BINDIR}/cmake/liboacam NAMESPACE liboacam:: DESTINATION "liboacamConfigTargets.cmake")
