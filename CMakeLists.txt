@@ -72,11 +72,78 @@ SET(ARMELAVAILABLE TRUE)
 if(${arch} STREQUAL "arm5" OR ${arch} STREQUAL "arm6")
     set(ARMELAVAILABLE FALSE)
 endif()
+#if HAVE_LIBV4L2
+#include "v4l2/V4L2oacam.h"
+#endif
+#if HAVE_LIBDC1394
+#include "iidc/IIDCoacam.h"
+#endif
+#include "pwc/PWCoacam.h"
+#if HAVE_LIBASI2
+#include "zwo/ZWASI2oacam.h"
+#endif
+#include "qhy/QHYoacam.h"
+#if HAVE_LIBUVC
+#include "uvc/UVCoacam.h"
+#endif
+#include "sx/SX.h"
+#include "sx/SXstate.h"
+#include "sx/SXoacam.h"
+#include "euvc/EUVC.h"
+#include "euvc/EUVCstate.h"
+#include "euvc/EUVCoacam.h"
+#if HAVE_LIBUDEV || HAVE_LIBFTDI
+#include "atik/atikSerialoacam.h"
+#endif
+#if HAVE_LIBFLYCAPTURE2
+#include "flycap2/FC2oacam.h"
+#endif
+#if HAVE_LIBTOUPCAM
+#include "toupcam/oacam.h"
+#endif
+#if HAVE_LIBMALLINCAM
+#include "mallincam/oacam.h"
+#endif
+#if HAVE_LIBALTAIRCAM
+#include "altair/oacam.h"
+#endif
+#if HAVE_LIBALTAIRCAM_LEGACY
+#include "altair-legacy/oacam.h"
+#endif
+#if HAVE_LIBSTARSHOOTG
+#include "starshootg/oacam.h"
+#endif
+#if HAVE_LIBNNCAM
+#include "risingcam/oacam.h"
+#endif
+#if HAVE_LIBSPINNAKER
+#include "spinnaker/Spinoacam.h"
+#endif
+#if HAVE_LIBARAVIS
+#include "aravis/aravisoacam.h"
+#endif
+#if HAVE_LIBQHYCCD
+#include "qhyccd/qhyccdoacam.h"
+#endif
+#if HAVE_LIBGPHOTO2
+#include "gphoto2/GP2oacam.h"
+#endif
+#if HAVE_LIBOMEGONPROCAM
+#include "omegonpro/oacam.h"
+#endif
+#if HAVE_LIBMEADECAM
+#include "meadecam/oacam.h"
+#endif
+#if HAVE_PYLON
+#include "pylon/oacam.h"
+#endif
+#if HAVE_LIBSVBCAMERASDK
+#include "svbony/SVBoacam.h"
 
 SET(HAVE_TOUPCAM ${ARMELAVAILABLE})
 SET(HAVE_MALLINCAM ${ARMELAVAILABLE})
 SET(HAVE_ALTAIRCAM ${ARMELAVAILABLE})
-SET(HAVE_ALTAIRCAMLEGACY ${ARMELAVAILABLE})
+SET(HAVE_ALTAIRCAM_sLEGACY ${ARMELAVAILABLE})
 SET(HAVE_STARSHOOTG ${ARMELAVAILABLE})
 SET(HAVE_NNCAM ${ARMELAVAILABLE})
 SET(HAVE_OMEGONPROCAM ${ARMELAVAILABLE})
@@ -106,7 +173,7 @@ if(HAVE_TOUPCAM AND NOT CHECKSYSTEMTOUPCAM) # TBD <- this needs to be done separ
     SET(HAVE_LIBALTAIRCAM TRUE)
 
     SET(LIBALTAIRCAM_LEGACY_CFLAGS "${CMAKE_CURRENT_SOURCE_DIR}/ext/libaltaircamlegacy/include")
-    SET(LIBALTAIRCAM_LEGACY_LIBS "")
+    SET(LIBALTAIRCAM_LEGACY_LIBS "altaircamlegacy")
     SET(HAVE_LIBALTAIRCAM_LEGACY TRUE)
 
     SET(LIBSTARSHOOTG_CFLAGS "${CMAKE_CURRENT_SOURCE_DIR}/ext/libstarshootg/include")

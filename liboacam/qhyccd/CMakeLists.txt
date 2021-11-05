@@ -13,5 +13,6 @@ message ("   Subdir qhyccd")
 # TBD TBD TBD !!!
 
 target_sources(oacam PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/qhyccdoacam.c ${CMAKE_CURRENT_SOURCE_DIR}/qhyccdconnect.c ${CMAKE_CURRENT_SOURCE_DIR}/qhyccdcontroller.c ${CMAKE_CURRENT_SOURCE_DIR}/qhyccdcontrol.c ${CMAKE_CURRENT_SOURCE_DIR}/qhyccdgetState.c ${CMAKE_CURRENT_SOURCE_DIR}/qhyccdroi.c ${CMAKE_CURRENT_SOURCE_DIR}/qhyccdcallback.c ${CMAKE_CURRENT_SOURCE_DIR}/qhyccdDynloader.c)
+target_compile_options(oacam PRIVATE -Wno-visibility)
 
 #target_link_directories(oacam PUBLIC ${CMAKE_SOURCE_DIR}/ext/libqhyccd/)
