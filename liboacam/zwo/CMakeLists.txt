@@ -1,12 +1,24 @@
 cmake_minimum_required(VERSION 3.11)
-cmake_policy(SET CMP0079 NEW)
 
 message ("   Subdir zwo")
-target_include_directories( oacam PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../ext/libASICamera2/include )
+
+add_library(zwo OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/ZWASI2oacam.c ${CMAKE_CURRENT_SOURCE_DIR}/ZWASIcommon.c ${CMAKE_CURRENT_SOURCE_DIR}/ZWASIcommonControl.c ${CMAKE_CURRENT_SOURCE_DIR}/ZWASIroi.c ${CMAKE_CURRENT_SOURCE_DIR}/ZWASIcallback.c ${CMAKE_CURRENT_SOURCE_DIR}/ZWASI2connect.c ${CMAKE_CURRENT_SOURCE_DIR}/ZWASI2controller.c ${CMAKE_CURRENT_SOURCE_DIR}/ZWASI2getState.c ${CMAKE_CURRENT_SOURCE_DIR}/ZWASI2control.c ${CMAKE_CURRENT_SOURCE_DIR}/ZWASI2dynloader.c)
+message("                ${CMAKE_CURRENT_SOURCE_DIR}/../ ")
+IF(NOT HAVE_LIBASI2)
+target_include_directories( zwo PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../include/  ${CMAKE_CURRENT_SOURCE_DIR}/../../ext/libASICamera2/include ${CMAKE_CURRENT_SOURCE_DIR}/../ )
+target_link_directories(zwo PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../ext/libASICamera2/ )
+SET( HAVE_LIBASI2 TRUE)
+ENDIF()
+
+IF(HAVE_LIBASI2)
+    CHECK_SYMBOL_EXISTS(ASI_AUTO_MAX_EXP_MS "ASICamera2.h" HAVE_DECL_ASI_AUTO_MAX_EXP_MS)
+    target_compile_definitions(zwo PRIVATE HAVE_LIBASI2=1 DYNLIB_EXTN_CFLAGS) # TBD ??
+ENDIF()
+
 
 #  $(SHLIBS_CFLAGS) $(LIBASI2_CFLAGS) \
 #  $(DYNLIB_EXTN_CFLAGS)
 
-target_sources(oacam PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/ZWASI2oacam.c ${CMAKE_CURRENT_SOURCE_DIR}/ZWASIcommon.c ${CMAKE_CURRENT_SOURCE_DIR}/ZWASIcommonControl.c ${CMAKE_CURRENT_SOURCE_DIR}/ZWASIroi.c ${CMAKE_CURRENT_SOURCE_DIR}/ZWASIcallback.c ${CMAKE_CURRENT_SOURCE_DIR}/ZWASI2connect.c ${CMAKE_CURRENT_SOURCE_DIR}/ZWASI2controller.c ${CMAKE_CURRENT_SOURCE_DIR}/ZWASI2getState.c ${CMAKE_CURRENT_SOURCE_DIR}/ZWASI2control.c ${CMAKE_CURRENT_SOURCE_DIR}/ZWASI2dynloader.c)
-target_link_directories(oacam PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../ext/libASICamera2 ) # TBD EITHER HERE OR IN TOP CMAKE
-target_link_libraries(oacam PRIVATE ASICamera2 ) #
+# TBD WHAT TO DO WHEN FOUND AND USING THAT?
+
+target_link_libraries(zwo PRIVATE ASICamera2 ) #

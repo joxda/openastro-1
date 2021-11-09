@@ -138,75 +138,99 @@ target_include_directories( oacam PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/../ )
 target_include_directories( oacam PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/../include )
 
 
+
 add_subdirectory(euvc)
+target_link_libraries(oacam PUBLIC $<TARGET_OBJECTS:euvc>  )
+
 add_subdirectory(pwc)
+target_link_libraries(oacam PUBLIC  $<TARGET_OBJECTS:pwc>  )
+
 add_subdirectory(qhy)
+target_link_libraries(oacam PUBLIC  $<TARGET_OBJECTS:qhy>  )
+
 add_subdirectory(sx)
+target_link_libraries(oacam PUBLIC  $<TARGET_OBJECTS:sx>  )
+
 add_subdirectory(dummy)
-
-
-link_libraries(oacam STATIC PUBLIC '''$<TARGET_OBJECTS:euvc>''' $<TARGET_OBJECTS:iidc> $<TARGET_OBJECTS:pwc> $<TARGET_OBJECTS:qhy> $<TARGET_OBJECTS:sx> $<TARGET_OBJECTS:uvc> $<TARGET_OBJECTS:dummy> $<TARGET_OBJECTS:v4l2> $<TARGET_OBJECTS:zwo> ${CMAKE_DL_LIBS} ${USB1_LIBRARIES} )
+target_link_libraries(oacam PUBLIC  $<TARGET_OBJECTS:dummy>  )
 
 if(HAVE_LIBFLYCAPTURE2)
     add_subdirectory(flycap2)
+    target_link_libraries(oacam PUBLIC  $<TARGET_OBJECTS:flycap>  )
 endif()
 
 if(HAVE_LIBDC1394)
   add_subdirectory(iidc)
+  target_link_libraries(oacam PUBLIC  $<TARGET_OBJECTS:iidc>  )
 endif()
 
-if(HAVE_LIBASI2)    
+#if(HAVE_LIBASI2)    
    add_subdirectory(zwo)
-endif()
+   target_link_libraries(oacam PUBLIC  $<TARGET_OBJECTS:zwo>  )
 
-if(HAVE_LIBUVC)
+#endif()
+
+#if(HAVE_LIBUVC)
     add_subdirectory(uvc)
-endif()
+    target_include_directories(oacam PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../ext/libuvc/include/ )
+    target_link_libraries(oacam PUBLIC  $<TARGET_OBJECTS:uvc>  )
+#endif()
 
 if(HAVE_GPHOTO2)
     add_subdirectory(gphoto2)
+    target_link_libraries(oacam PUBLIC  $<TARGET_OBJECTS:gphoto2>  )
 endif()
 
 if(HAVE_QHYCCD)
     add_subdirectory(qhyccd)
+    target_link_libraries(oacam PUBLIC  $<TARGET_OBJECTS:qhyccd>  )
 endif()
 
 if(HAVE_LIBV4L2)
+    if(${arch} STREQUAL "arm5" OR ${arch} STREQUAL "arm6"  OR ${arch} STREQUAL "arm7" )
+        SET(V4L2_MEMORY_RESTRICTED TRUE)
+    endif()
    add_subdirectory(v4l2)
-   if(${arch} STREQUAL "arm5" OR ${arch} STREQUAL "arm6"  OR ${arch} STREQUAL "arm7" )
-    SET(V4L2_MEMORY_RESTRICTED TRUE)
-   endif()
+   target_link_libraries(oacam PUBLIC  $<TARGET_OBJECTS:v4l2>  )
 endif()
 
 if(HAVE_LIBTOUPCAM) # TBD ONE BY ONE
     add_subdirectory(toupcam)
-    if(${LIBTOUPCAM_LIBS} NOT STREQUAL "")
-        target_link_libraries(oacam PRIVATE ${LIBTOUPCAM_LIBS})
-        target_compile_options(oacam PRIVATE -Wno-visibility)
-    endif()
+    target_link_libraries(oacam PUBLIC $<TARGET_OBJECTS:toupcam> )
 endif(HAVE_LIBTOUPCAM)
-
 if(HAVE_LIBSTARSHOOTG)
     add_subdirectory(starshootg)
+    target_link_libraries(oacam PUBLIC $<TARGET_OBJECTS:starshootg> )
 endif()
 if(HAVE_LIBRISINGCAM)
     add_subdirectory(risingcam)
+    target_link_libraries(oacam PUBLIC $<TARGET_OBJECTS:risingcam> )
 endif()
 if(HAVE_LIBOMEGONPROCAM)
     add_subdirectory(omegonpro)
+    target_link_libraries(oacam PUBLIC $<TARGET_OBJECTS:omegonpro> )
 endif()
-if(HAVE_LIBMEADECAM)
-    add_subdirectory(meadecam)
-endif()
+#if(HAVE_LIBMEADECAM)
+#    add_subdirectory(meadecam)
+#    target_link_libraries(oacam PUBLIC $<TARGET_OBJECTS:meadecam> )
+#endif()
 if(HAVE_LIBMALLINCAM)
     add_subdirectory(mallincam)
+    target_link_libraries(oacam PUBLIC $<TARGET_OBJECTS:mallincam> )
 endif()
 if(HAVE_LIBALTAIRCAM_LEGACY)
     add_subdirectory(altair-legacy)
+    target_link_libraries(oacam PUBLIC $<TARGET_OBJECTS:altair-legacy> )
 endif()
 if(HAVE_LIBALTAIRCAM)
     add_subdirectory(altair)
+    target_link_libraries(oacam PUBLIC $<TARGET_OBJECTS:altair> )
 endif()
+
+
+
+
+
 
 target_include_directories(oacam PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include ${CMAKE_CURRENT_SOURCE_DIR})
 file(GLOB_RECURSE INCLUDE_FILES "../include/*.h*") 

@@ -38,7 +38,7 @@ SET(CHECKSYSTEMLIBSVBCAMERASDK FALSE)
 SET(CHECKSYSTEMLIBSASICAMERA FALSE)
 
 #checkSystemLibefwfilter=no
-
+SET(COMMON_COMPILE_OPTIONS "HAVE_CONFIG_H=1" "HAVE_LIBDL=1")
 IF(APPLE)
     SET(USB_OVERFLOW_HANGS TRUE)
     SET(HAVE_SVBCAMERASDK TRUE)
@@ -63,7 +63,8 @@ IF(APPLE)
     #fi
     #APP_PATH_CFLAGS="-DUSE_APP_PATH=1"
     #DEFAULT_PATH_CFLAGS="-DUSE_HOME_DEFAULT=1"
-    add_definitions(-DDYNLIB_EXT_DYLIB) 
+    #add_definitions(-DDYNLIB_EXT_DYLIB) 
+    SET(COMMON_COMPILE_OPTIONS ${COMMON_COMPILE_OPTIONS} DYNLIB_EXT_DYLIB)
 
 ENDIF()
 
@@ -162,6 +163,11 @@ SET(SVNCAMERASDK FALSE)
 SET(HAVE_MEADECAM FALSE)
 SET(HAVE_LIBARAVIS FALSE)
 
+
+#find_package(libusb1 REQUIRED)
+#if(BUILD_LIBUSB)
+# add_subdirectory(ext/libusb/)
+#endif()
 
 if(HAVE_TOUPCAM AND NOT CHECKSYSTEMTOUPCAM) # TBD <- this needs to be done separately for most? then also modify in liboacam cmakelists
     SET(LIBTOUPCAM_CFLAGS "${CMAKE_CURRENT_SOURCE_DIR}/ext/libtoupcam/include")
@@ -389,36 +395,24 @@ check_cxx_source_compiles("int main() { void* p = nullptr; }"
     HAVE_NULLPTR
     FAIL_REGEX "use of undeclared identifier 'nullptr'")
 
-include_directories( /usr/local/include )
-link_directories( /usr/local/lib )
+#include_directories( /usr/local/include )
+#link_directories( /usr/local/lib )
 
 INCLUDE (CheckLibraryExists)
 SET(CMAKE_REQUIRED_INCLUDES ${LINK_DIRECTORIES};/usr/local/lib)
 SET(CMAKE_REQUIRED_LIBRARIES ${CMAKE_REQUIRED_LIBRARIES} uvc)
 CHECK_LIBRARY_EXISTS(uvc uvc_init /usr/local/lib HAVE_LIBUVC)
 
-SET(CMAKE_REQUIRED_LIBRARIES ASICamera2)
-CHECK_LIBRARY_EXISTS(ASICamera2 ASIGetNumOfConnectedCameras /usr/local/lib HAVE_LIBASI2) # TBD HOW TO BETTER SET LOCATION?
+#SET(CMAKE_REQUIRED_LIBRARIES ASICamera2)
+#CHECK_LIBRARY_EXISTS(ASICamera2 ASIGetNumOfConnectedCameras /usr/local/lib HAVE_LIBASI2) # TBD HOW TO BETTER SET LOCATION?
 
 SET(CMAKE_REQUIRED_LIBRARIES ${CMAKE_REQUIRED_LIBRARIES} v4l2)
 CHECK_LIBRARY_EXISTS(v4l2 v4l2_open /usr/local/lib HAVE_LIBV4L2)
 
-IF(NOT HAVE_LIBASI2)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/ext/libASICamera2/include )
-link_directories(${CMAKE_CURRENT_SOURCE_DIR}/ext/libASICamera2/mac )
-SET( HAVE_LIBASI2 TRUE)
-ENDIF()
-
-IF(HAVE_LIBASI2)
-    CHECK_SYMBOL_EXISTS(ASI_AUTO_MAX_EXP_MS "ASICamera2.h" HAVE_DECL_ASI_AUTO_MAX_EXP_MS)
-    add_definitions(-DHAVE_LIBASI2=1 -DDYNLIB_EXTN_CFLAGS) # TBD ??
-ENDIF()
-
 IF(NOT HAVE_LIBUVC)
-    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/ext/libuvc)
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../../ext/libuvc)
     SET(HAVE_LIBUVC TRUE)
 ENDIF()
-
 # ALSO FOR LIBUSB
 # IF(NOT HAVE_UVC)
 #     add_subdirectory(${CMAKE_SOURCE_DIR}/ext/libuvc)
@@ -471,9 +465,10 @@ SET( HAVE_CONFIG_H TRUE)
 SET( HAVE_LIBDL TRUE)
 SET( STDC_HEADERS TRUE )
 
-add_definitions(-DHAVE_CONFIG_H=1)
-add_definitions(-DHAVE_LIBDL=1)
-configure_file(cm_config.h.in config.h)
+add_definitions(-DHAVE_CONFIG_H)
+add_definitions(-DHAVE_LIBDL)
+
+configure_file(cm_config.h.in ${CMAKE_CURRENT_SOURCE_DIR}/include/config.h)
 
 
 include(GNUInstallDirs)
