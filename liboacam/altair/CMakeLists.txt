@@ -6,6 +6,7 @@ add_library(altair OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/../touptek/oacam.c  ${CMAK
 
 target_include_directories( altair PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../touptek/include ${LIBTOUPCAM_CFLAGS} ${CMAKE_CURRENT_SOURCE_DIR})
 target_include_directories( altair PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../include/ ${CMAKE_CURRENT_SOURCE_DIR}/../../ext/libusb/include/ ${CMAKE_CURRENT_SOURCE_DIR}/../ ${CMAKE_CURRENT_SOURCE_DIR}/../../ext/libaltaircam/include/ ${CMAKE_CURRENT_SOURCE_DIR}/../../include/ ) # libusb? TBD
+target_compile_definitions( altair PUBLIC HAVE_CONFIG_H HAVE_LIBDL)
 
 target_link_libraries(altair PUBLIC dl ${LIBALTAIRCAM_LIBS} dl) # TBD libaltaircam
 target_compile_definitions(altair PUBLIC ALTAIR)
