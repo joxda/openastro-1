@@ -171,7 +171,7 @@ endif()
 #endif()
 
 #if(HAVE_LIBUVC)
-    add_subdirectory(uvc)
+   add_subdirectory(uvc)
     target_include_directories(oacam PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../ext/libuvc/include/ )
     target_link_libraries(oacam  PRIVATE $<TARGET_OBJECTS:uvc>  )
 #endif()
