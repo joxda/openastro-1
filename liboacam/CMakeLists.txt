@@ -146,34 +146,34 @@ add_subdirectory(pwc)
 target_link_libraries(oacam PUBLIC  $<TARGET_OBJECTS:pwc>  )
 
 add_subdirectory(qhy)
-target_link_libraries(oacam PUBLIC  $<TARGET_OBJECTS:qhy>  )
+target_link_libraries(oacam  PUBLIC  $<TARGET_OBJECTS:qhy>  )
 
 add_subdirectory(sx)
 target_link_libraries(oacam PUBLIC  $<TARGET_OBJECTS:sx>  )
 
 add_subdirectory(dummy)
-target_link_libraries(oacam PUBLIC  $<TARGET_OBJECTS:dummy>  )
+target_link_libraries(oacam  PUBLIC  $<TARGET_OBJECTS:dummy>  )
 
 if(HAVE_LIBFLYCAPTURE2)
     add_subdirectory(flycap2)
-    target_link_libraries(oacam PUBLIC  $<TARGET_OBJECTS:flycap>  )
+    target_link_libraries(oacam  PUBLIC  $<TARGET_OBJECTS:flycap>  )
 endif()
 
 if(HAVE_LIBDC1394)
   add_subdirectory(iidc)
-  target_link_libraries(oacam PUBLIC  $<TARGET_OBJECTS:iidc>  )
+  target_link_libraries(oacam  PUBLIC  $<TARGET_OBJECTS:iidc>  )
 endif()
 
 #if(HAVE_LIBASI2)    
    add_subdirectory(zwo)
-   target_link_libraries(oacam PUBLIC  $<TARGET_OBJECTS:zwo>  )
+   target_link_libraries(oacam  PUBLIC  $<TARGET_OBJECTS:zwo>  )
 
 #endif()
 
 #if(HAVE_LIBUVC)
     add_subdirectory(uvc)
     target_include_directories(oacam PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../ext/libuvc/include/ )
-    target_link_libraries(oacam PUBLIC  $<TARGET_OBJECTS:uvc>  )
+    target_link_libraries(oacam  PUBLIC  $<TARGET_OBJECTS:uvc>  )
 #endif()
 
 if(HAVE_GPHOTO2)
@@ -183,7 +183,7 @@ endif()
 
 if(HAVE_QHYCCD)
     add_subdirectory(qhyccd)
-    target_link_libraries(oacam PUBLIC  $<TARGET_OBJECTS:qhyccd>  )
+    target_link_libraries(oacam PUBLIC $<TARGET_OBJECTS:qhyccd>  )
 endif()
 
 if(HAVE_LIBV4L2)

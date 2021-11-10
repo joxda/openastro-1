@@ -8,3 +8,4 @@ target_include_directories( altair PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../toupte
 target_include_directories( altair PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../ext/libusb/include/ ${CMAKE_CURRENT_SOURCE_DIR}/../../include/ ${CMAKE_CURRENT_SOURCE_DIR}/../ ${CMAKE_CURRENT_SOURCE_DIR}/../../ext/libaltaircam/include/ ) # libusb? TBD
 
 target_link_libraries(altair PRIVATE ${LIBALTAIRCAM_LIBS} ${CMAKE_DL_LIBS}) # TBD libaltaircam
+target_compile_definitions(altair PUBLIC ALTAIR)
