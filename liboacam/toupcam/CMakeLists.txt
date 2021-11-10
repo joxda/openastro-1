@@ -9,8 +9,8 @@ add_library( toupcam OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/../touptek/oacam.c  ${CM
 target_include_directories( toupcam PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../touptek/include ${LIBTOUPCAM_CFLAGS} ${CMAKE_CURRENT_SOURCE_DIR})
 target_include_directories( toupcam PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../ext/libusb/include/ ${CMAKE_CURRENT_SOURCE_DIR}/../../include/ ${CMAKE_CURRENT_SOURCE_DIR}/../  ) # libusb? TBD
 
+target_link_libraries(toupcam PRIVATE ${LIBTOUPCAM_LIBS} ${CMAKE_DL_LIBS})
 
 if(${LIBTOUPCAM_LIBS} NOT STREQUAL "")
-target_link_libraries(toupcam PRIVATE ${LIBTOUPCAM_LIBS})
 target_compile_options(toupcam PRIVATE -Wno-visibility)
 endif()
