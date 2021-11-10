@@ -137,8 +137,7 @@ target_include_directories( oacam PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../ext/lib
 target_include_directories( oacam PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/../ )
 target_include_directories( oacam PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/../include )
 
-set(CMAKE_DL_LIBS "dl")
-target_link_libraries(oacam PUBLIC ${CMAKE_DL_LIBS})
+target_link_libraries(oacam PUBLIC dl)
 message(" THISTHISTHIS                  ${CMAKE_DL_LIBS}")
 add_subdirectory(euvc)
 target_link_libraries(oacam PUBLIC $<TARGET_OBJECTS:euvc>  )
@@ -228,7 +227,7 @@ if(HAVE_LIBALTAIRCAM)
     target_link_libraries(oacam PUBLIC $<TARGET_OBJECTS:altair> )
 endif()
 
-target_link_libraries(oacam PUBLIC ${CMAKE_DL_LIBS})
+target_link_libraries(oacam PUBLIC dl)
 
 
 
