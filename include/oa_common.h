@@ -74,7 +74,9 @@ extern int errno;
 #define nullptr NULL
 #endif
 
+#ifndef _POSIX_C_SOURCE
 #define _POSIX_C_SOURCE 1
+#endif
 #include <limits.h>
 #include <math.h>
 #include <string.h>

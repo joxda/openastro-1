@@ -410,7 +410,7 @@ SET(CMAKE_REQUIRED_LIBRARIES ${CMAKE_REQUIRED_LIBRARIES} v4l2)
 CHECK_LIBRARY_EXISTS(v4l2 v4l2_open /usr/local/lib HAVE_LIBV4L2)
 
 IF(NOT HAVE_LIBUVC)
-    #add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../../ext/libuvc)
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../../ext/libuvc)
     SET(HAVE_LIBUVC TRUE)
 ENDIF()
 # ALSO FOR LIBUSB
