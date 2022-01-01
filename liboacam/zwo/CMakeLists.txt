@@ -12,6 +12,8 @@ ENDIF()
 
 IF(HAVE_LIBASI2)
     CHECK_SYMBOL_EXISTS(ASI_AUTO_MAX_EXP_MS "ASICamera2.h" HAVE_DECL_ASI_AUTO_MAX_EXP_MS)
+    message("                HAVE_LIBASI2 ")
+
     target_compile_definitions(zwo PRIVATE HAVE_LIBASI2=1 DYNLIB_EXTN_CFLAGS) # TBD ??
 ENDIF()
 
