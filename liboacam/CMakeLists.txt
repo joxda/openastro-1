@@ -234,7 +234,11 @@ target_link_libraries(oacam PUBLIC dl)
 
 
 target_link_directories(oacam PUBLIC "/usr/local/lib/")
-target_include_directories(oacam PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../include ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(oacam PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include> 
+$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}> )
+target_include_directories(oacam PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}> 
+$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}> )
+
 file(GLOB_RECURSE INCLUDE_FILES "../include/*.h*") 
 set(INCLUDE_FILES ${INCLUDE_FILES};${CMAKE_CURRENT_BINARY_DIR}/../config.h)
 if (APPLE)
