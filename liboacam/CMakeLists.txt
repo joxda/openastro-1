@@ -167,7 +167,7 @@ endif()
 #if(HAVE_LIBASI2)    
    add_subdirectory(zwo)
    target_link_libraries(oacam  PUBLIC  $<TARGET_OBJECTS:zwo>  )
-   target_link_libraries(oacam PRIVATE ASICamera2 ) #
+   #target_link_libraries(oacam PRIVATE ASICamera2 ) #
 
 
 #endif()
