@@ -14,6 +14,5 @@ target_compile_options(euvc PUBLIC -DDYNLIB_EXT_DYLIB)
 message(${COMMON_COMPILE_OPTIONS})
 #target_sources(oacam PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/EUVCoacam.c ${CMAKE_CURRENT_SOURCE_DIR}/EUVCconnect.c ${CMAKE_CURRENT_SOURCE_DIR}/EUVCcontrol.c ${CMAKE_CURRENT_SOURCE_DIR}/EUVCcallback.c ${CMAKE_CURRENT_SOURCE_DIR}/EUVCgetState.c ${CMAKE_CURRENT_SOURCE_DIR}/EUVCcontroller.c ${CMAKE_CURRENT_SOURCE_DIR}/EUVCusb.c ${CMAKE_CURRENT_SOURCE_DIR}/EUVCroi.c )
 if(BUILD_LIBUSB)
-    target_include_directories( euvc PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../ex\
-t/libusb )
+    target_include_directories( euvc PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../ext/libusb )
 endif()

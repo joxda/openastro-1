@@ -21,6 +21,5 @@ target_compile_options(iidc PUBLIC -DDYNLIB_EXT_DYLIB)
 
 target_link_libraries(iidc PRIVATE dc1934 usb-1.0)
 if(BUILD_LIBUSB)                                                                
-    target_include_directories( iidc PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../ex\
-t/libusb )                                                                      
+    target_include_directories( iidc PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../ext/libusb )                                                                      
 endif()  
