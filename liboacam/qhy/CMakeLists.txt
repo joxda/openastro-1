@@ -10,4 +10,6 @@ target_include_directories(qhy PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../include
 
 target_compile_definitions(qhy PRIVATE FXLOAD_PATH=${FXLOAD_PATH} FIRMWARE_QHY_PATH=${QHY_FIRMWARE_PATH})
 
-
+if(BUILD_LIBUSB)
+    target_include_directories( qhy PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../ext/libusb )
+endif()
